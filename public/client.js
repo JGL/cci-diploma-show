@@ -2519,9 +2519,9 @@ function playIconLabel(an) {
   //click to view label
   let ctv = "Click to view video."; //label text
   let ctv_width = textWidth(ctv); //text width
-  let ctv_l_width = ctv_width + TEXT_PADDING * 2; //label width
-  let ctv_l_height = TEXT_H + TEXT_PADDING * 2; //label height
-  let ctv_xPos = xPosRounded + TEXT_PADDING; //text x position
+  let ctv_l_width = ctv_width / 2 + TEXT_PADDING * 2; //label width
+  let ctv_l_height = TEXT_H / 2 + TEXT_PADDING * 2; //label height
+  let ctv_xPos = xPosRounded + TEXT_PADDING ; //text x position
   let ctv_yPos = floor(mouseY - TEXT_PADDING); //text y position
   let ctv_l_yPos = floor(mouseY - ctv_l_height); // top left corner y position
 
@@ -2530,7 +2530,7 @@ function playIconLabel(an) {
   let an_l_width = an_t_width + TEXT_PADDING * 2 + 1; //label width;
   let an_l_height = TEXT_H + TEXT_PADDING * 2; //label height
   let an_t_xPos = xPosRounded + TEXT_PADDING;
-  let an_t_yPos = ctv_yPos - an_l_height - spaceBetweenLabels; //text y position
+  let an_t_yPos = ctv_yPos - an_l_height - spaceBetweenLabels + TEXT_PADDING; //text y position
   let an_l_yPos = floor(mouseY - (an_l_height + spaceBetweenLabels + ctv_l_height)); //top left corner y position
 
   ctv_l_width > an_l_width ? totalWidth = ctv_l_width : totalWidth = an_l_width;
@@ -2546,6 +2546,8 @@ function playIconLabel(an) {
   rect(xPosRounded, an_l_yPos, an_l_width, an_l_height); //artist name label rectangle
   rect(xPosRounded, ctv_l_yPos, ctv_l_width, ctv_l_height); //click to view label rectangle
   fill(LABEL_NEUTRAL_COLOR); //text label colour
-  text(an_t, an_t_xPos, an_t_yPos); //artist name label text
+  textFont(font, FONT_SIZE / 2)
   text(ctv, ctv_xPos, ctv_yPos); //click to view text
+  textFont(font, FONT_SIZE)
+  text(an_t, an_t_xPos, an_t_yPos); //artist name label text
 }
