@@ -2512,7 +2512,9 @@ function playIconLabel(an) {
 
   let xPos = mouseX;
   let xPosRounded = floor(xPos);
+
   let spaceBetweenLabels = 2;
+  let totalWidth;
 
   //click to view label
   let ctv = "Click to view video."; //label text
@@ -2530,6 +2532,14 @@ function playIconLabel(an) {
   let an_t_xPos = xPosRounded + TEXT_PADDING;
   let an_t_yPos = ctv_yPos - an_l_height - spaceBetweenLabels; //text y position
   let an_l_yPos = floor(mouseY - (an_l_height + spaceBetweenLabels + ctv_l_height)); //top left corner y position
+
+  ctv_l_width > an_l_width ? totalWidth = ctv_l_width : totalWidth = an_l_width;
+
+  if (mouseX + totalWidth > width) {
+    xPosRounded = width - totalWidth;
+    an_t_xPos = xPosRounded + TEXT_PADDING;
+    ctv_xPos = xPosRounded + TEXT_PADDING;
+  }
 
   fill(UI_BG); //rectangle fill
   noStroke(); //no stroke
