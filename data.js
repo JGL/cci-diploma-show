@@ -2,7 +2,7 @@
 //they are either related to the rooms or shared with the server 
 module.exports.SETTINGS = {
     //if not specified by the url where is the starting point
-    defaultRoom: "cciOutside",
+    defaultRoom: "street",
     //minimum time between talk messages enforced by both client and server
     ANTI_SPAM: 1000,
     //shows up at first non lurking login
@@ -23,7 +23,7 @@ module.exports.SOUNDS = [
 module.exports.ROOMS = {
 
 
-    cciOutside: {
+    street: {
         bg: "cciOutside-bg.png",
         frames: 2,
         frameDelay: 30,
@@ -32,14 +32,14 @@ module.exports.ROOMS = {
         area: "cciOutside-areas.png",
         tint: "#fdeac8",
         bubblesY: 44,
-        spawn: [14, 84, 119, 92],
+        spawn: [14, 89, 119, 98],
         areaColors: {
             //h will be replaced by #
-            hff77a8: { cmd: "enter", room: "securityRoom", label: "Security", point: [64, 87], enterPoint: [64, 90], obstacle: false  },
+            hff77a8: { cmd: "enter", room: "security", label: "Security", point: [64, 87], enterPoint: [64, 90], obstacle: false  },
         }
     },
 
-    animalRoom: {
+    animal: {
         bg: "animalRoom-bg.png",
         avatarScale: 2,
         pageBg: pinkBG,
@@ -49,11 +49,11 @@ module.exports.ROOMS = {
         spawn: [15, 77, 113, 96],
         areaColors: {
             //left
-            hffec27: { cmd: "enter", room: "viewRoom", label: "View Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
+            hffec27: { cmd: "enter", room: "view", label: "View Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
             //right
-            h00e436: { cmd: "enter", room: "drawRoom", label: "Draw Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
+            h00e436: { cmd: "enter", room: "draw", label: "Draw Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //down
-            h29adff: { cmd: "enter", room: "careRoom", label: "Care Room", point: [99, 73], enterPoint: [30, 73], obstacle: false },
+            h29adff: { cmd: "enter", room: "care", label: "Care Room", point: [99, 73], enterPoint: [30, 73], obstacle: false },
             //artwork
             ha8e72e: { cmd: "text", txt: "Project by Eunah Lee\nHelp Haru find its way back home!\nAn interactive storybook for kids", align: "left", lines: 3, url: "https://eunah-lee-storybook5-6.glitch.me/", label: "Haru's Adventure", point: [34, 73], obstacle: false },
             hff0000: { cmd: "text", txt: "Project by Stacy\nBoggle is: A website for dog lovers,\nA place to loose yourself in a variety of doggy experiences:\nWear a dog crown\nDraw psychedelic dogs with your nose\nOr play a game of eat the treats using your dog head hoop to catch the dog biscuits", align: "left", lines: 11, url: "https://dog-game-website-.glitch.me/", label: "Boggle", point: [74, 73], obstacle: false },
@@ -70,7 +70,7 @@ module.exports.ROOMS = {
         }
     },
 
-    careRoom: {
+    care: {
         bg: "careRoom-bg.png",
         avatarScale: 2,
         pageBg: pinkBG,
@@ -80,13 +80,13 @@ module.exports.ROOMS = {
         spawn: [15, 77, 113, 96],
         areaColors: {
             //left
-            hffec27: { cmd: "enter", room: "discoRoom", label: "Disco Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
+            hffec27: { cmd: "enter", room: "disco", label: "Disco Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
             //right
-            h00e436: { cmd: "enter", room: "socialRoom", label: "Social Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
+            h00e436: { cmd: "enter", room: "social", label: "Social Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //down
-            hff77a8: { cmd: "enter", room: "securityRoom", label: "Security", point: [99, 73], enterPoint: [99, 73], obstacle: false },
+            hff77a8: { cmd: "enter", room: "security", label: "Security", point: [99, 73], enterPoint: [99, 73], obstacle: false },
             //up
-            h29adff: { cmd: "enter", room: "animalRoom", label: "Animal Room", point: [30, 73], enterPoint: [99, 73], obstacle: false },
+            h29adff: { cmd: "enter", room: "animal", label: "Animal Room", point: [30, 73], enterPoint: [99, 73], obstacle: false },
             //projects
             hff0000: {cmd: "text", txt: "Project by Mia Stoces-Brown\nEverybody is just trying to get from A to B.", align: "left", lines: 3, url: "https://from-a-to-b-.glitch.me", label: "From A to B", point: [24, 80], obstacle: false},
             h0000ff: {cmd: "text", txt: "Project by Bea Taylor Searle\nIn a world where we can't hold hands, let's feel closer online. ", align: "left", lines: 3, url: "http://holding-hands2.glitch.me/", label: "Holding Hands", point: [64, 80], obstacle: false},
@@ -103,7 +103,7 @@ module.exports.ROOMS = {
         }
     },
 
-    socialRoom: {
+    social: {
         bg: "socialRoom-bg.png",
         avatarScale: 2,
         tint: "#ffbbb8",
@@ -113,10 +113,10 @@ module.exports.ROOMS = {
         area: "socialRoom-areas.png",
         areaColors: {
             //left
-            hffec27: { cmd: "enter", room: "careRoom", label: "Care Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
+            hffec27: { cmd: "enter", room: "care", label: "Care Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
             //projects
             h00ff00: { cmd: "text", txt: "Project by Edward Martin\nA prototype for a social networking app that uses your daily emotions to communicate with your friends and family.", align: "left", lines: 5, url: "https://2020-06-06-regard-socket-app.glitch.me/", label: "Regard.", point: [34, 78], obstacle: true },
-            hff0000: { cmd: "text", txt: "Project by Zhiqin Lu", align: "left", lines: 5, url: "https://observe-.glitch.me/", label: "Observe", point: [64, 78], obstacle: true },
+            hff0000: { cmd: "text", txt: "Project by Zhiqin Lu\nA web-based app to play and chat with images together.", align: "left", lines: 3, url: "https://observe-.glitch.me/", label: "Observe", point: [64, 78], obstacle: true },
             h0000ff: { cmd: "text", txt: "Project by Maximilian Zimmerer\nCommon Denominator is a web-based interaction that uses computer vision and socket connections to merge people's faces in real-time. The motivation behind this project was to create moments of joy between a pair of users and offer a digital sense of togetherness.", align: "left", lines: 9, url: "https://common-denominator.glitch.me/", label: "Common Denominator", point: [92, 78], obstacle: true },
             hff00ff: { cmd: "text", txt: "Project by Thomas Bugg", align: "left", lines: 4, url: "https://manipulated-living.glitch.me/", label: "Manipulated Living", point: [100, 88], obstacle: true },
             //TV icons
@@ -127,7 +127,7 @@ module.exports.ROOMS = {
         }
     },
 
-    discoRoom: {
+    disco: {
         bg: "discoRoom-bg.png",
         avatarScale: 2,
         frames: 2,
@@ -139,7 +139,7 @@ module.exports.ROOMS = {
         spawn: [15, 77, 113, 96],
         areaColors: {
             //right
-            h00e436: { cmd: "enter", room: "careRoom", label: "Care Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
+            h00e436: { cmd: "enter", room: "care", label: "Care Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //projects
             hff0000: { cmd: "text", txt: "Project by Llorenc Garcia Bas\nA web based instrumental music app inspired by the Theremin that uses real-time body movements to manipulate sounds.", align: "left", lines: 5, url: "https://inky-simple-dryosaurus.glitch.me/", label: "Theremax", point: [34, 78], obstacle: true },
             hffff00: { cmd: "text", txt: "Project by Laiqa Mohid\nA musical collaboration built through eye contact", align: "left", lines: 3, url: "https://eye-orchestra-final.glitch.me/", label: "Eye Orchestra", point: [64, 78], obstacle: true },
@@ -153,7 +153,7 @@ module.exports.ROOMS = {
         }
     },
 
-    securityRoom: {
+    security: {
 
         bg: "securityRoom-bg.png",
         avatarScale: 2,
@@ -164,16 +164,16 @@ module.exports.ROOMS = {
         spawn: [15, 77, 113, 96],
         areaColors: {
             //left
-            hffec27: { cmd: "enter", room: "gameRoom", label: "Game Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
+            hffec27: { cmd: "enter", room: "game", label: "Game Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
             //right
             h00e436: { cmd: "enter", room: "gallery", label: "Gallery", point: [117, 86], enterPoint: [16, 85], obstacle: false },
             //door in back
-            h29adff: { cmd: "enter", room: "foodRoom", label: "Food Room", point: [30, 73], enterPoint: [30, 89], obstacle: false },
+            h29adff: { cmd: "enter", room: "food", label: "Food Room", point: [30, 73], enterPoint: [30, 89], obstacle: false },
             //up
-            hff77a8: { cmd: "enter", room: "careRoom", label: "Care Room", point: [99, 73], enterPoint: [99, 73], obstacle: false },
+            hff77a8: { cmd: "enter", room: "care", label: "Care Room", point: [99, 73], enterPoint: [99, 73], obstacle: false },
             //back outside
          
-            hbe1250: { cmd: "enter", room: "cciOutside", label: "Entrance", point: [63, 98], enterPoint: [64, 98], obstacle: false },
+            hbe1250: { cmd: "enter", room: "street", label: "Entrance", point: [63, 98], enterPoint: [64, 98], obstacle: false },
             
         },
         things: {
@@ -192,7 +192,7 @@ module.exports.ROOMS = {
         area: "galleryRoom-areas.png",
         areaColors: {
             //left
-            hffec27: { cmd: "enter", room: "securityRoom", label: "Security", point: [10, 86], enterPoint: [114, 86], obstacle: false },
+            hffec27: { cmd: "enter", room: "security", label: "Security", point: [10, 86], enterPoint: [114, 86], obstacle: false },
             //Projects by: Jessie, Val and Riya
             h00ff00: { cmd: "text", txt: "Project by Jessie Zhang\nBlow digital bubbles with sound!", align: "left", lines: 2, url: "https://speech-bubbles.glitch.me/", label: "Speech Bubbles", point: [34, 78], obstacle: true },
             hff0000: { cmd: "text", txt: "Project by Val Toro\nWatch the tale of a lonely ghost before joining them in the next realm.", align: "left", lines: 4, url: "https://ghost-tales.glitch.me/", label: "Ghost Tales", point: [64, 78], obstacle: true },
@@ -204,7 +204,7 @@ module.exports.ROOMS = {
         }
     },
 
-    foodRoom: {
+    food: {
         bg: "foodRoom-bg.png",
         avatarScale: 2,
         tint: "#ffbbb8",
@@ -214,10 +214,10 @@ module.exports.ROOMS = {
         area: "foodRoom-areas.png",
         areaColors: {
             //left
-            hbe1250: { cmd: "enter", room: "securityRoom", label: "Security", point: [34, 94], enterPoint: [34, 74], obstacle: false },
+            hbe1250: { cmd: "enter", room: "security", label: "Security", point: [34, 94], enterPoint: [34, 74], obstacle: false },
             //projects
             hffff00: { cmd: "text", txt: "Project by Khalisha Tambunan\nIt's raining cats and dogs... and everything in between.", align: "left", lines: 3, url: "https://testkitsc.glitch.me/", label: "Kitschen Dreams", point: [34, 78], obstacle: true },
-            hff0000: { cmd: "text", txt: "Project by Kamil Sznajder\nA simple screen game, in which one becomes a lizard, sunning on a red rock. Using your phone flashlight, your task is to eat as much bugs as possible while watching out for predators.", align: "left", lines: 7, url: "https://time-to-eat.glitch.me/", label: "Time to eat Bug!", point: [94, 78], obstacle: true },
+            hff0000: { cmd: "text", txt: "Project by Kamil Sznajder\nA simple screen game, in which one becomes a lizard, running on a red rock. Using your phone flashlight, your task is to eat as much bugs as possible while watching out for predators.", align: "left", lines: 7, url: "https://time-to-eat.glitch.me/", label: "Time to eat Bug!", point: [94, 78], obstacle: true },
             //TV icons
             hf39200: { cmd: "text", txt: "click for presentation", url: "https://testkitsc.glitch.me/", label: "info", point: [34, 78], obstacle: true },
             h006b2d: { cmd: "text", txt: "click for presentation", url: "https://time-to-eat.glitch.me/", label: "info", point: [94, 78], obstacle: true }           
@@ -229,7 +229,7 @@ module.exports.ROOMS = {
     },
   
 
-    gameRoom: {
+    game: {
         bg: "gameRoom-bg.png",
         avatarScale: 2,
         frames: 3,
@@ -241,12 +241,12 @@ module.exports.ROOMS = {
         spawn: [15, 77, 113, 96],
         areaColors: {
             //right
-            h00e436: { cmd: "enter", room: "securityRoom", label: "Security", point: [117, 86], enterPoint: [12, 86], obstacle: false },
+            h00e436: { cmd: "enter", room: "security", label: "Security", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //projects
             hff0000: { cmd: "text", txt: "Project by Sandro Valente\nThe Head controlled space exploration game that is about spreading goodwill to close enough planets. Who will be the best Starseed? Will any ever reach 200 max score? Upload your high score #starseeds to enter the prize draw! Live Long & Prosper!", align: "left", lines: 9, url: "https://starseeds-.glitch.me/", label: "Starseeds", point: [34, 78], obstacle: true },
             hffff00: { cmd: "text", txt: "Project by Lexy Garces Beavis\nA game inspired by the 1975 Arcade Game: Whac-A-Mole. Use your wrists to move around the rainbows to hit the sun. Encouraging movement as a form of self-care.", align: "left", lines: 6, url: "https://quaroutine-the-game1.glitch.me/", label: "Quaroutine", point: [64, 78], obstacle: true },
             h0000ff: { cmd: "text", txt: "Project by Dejana Draganić", align: "left", lines: 4, url: "https://shake-it-out-.glitch.me/", label: "Shake it Out!", point: [92, 78], obstacle: true },
-            hff00ff: { cmd: "text", txt: "Project by Martin Del Busto", align: "left", lines: 4, url: "https://pixelated.glitch.me/", label: "Pixelated", point: [10, 86], obstacle: true },
+            hff00ff: { cmd: "text", txt: "Project by Martin Del Busto\nPixelated is a game about choosing the correct pixelated image using your eyes. 12 questions, 2 pixelated images per question and one correct answer.", align: "left", lines: 7, url: "https://pixelated.glitch.me/", label: "Pixelated", point: [10, 86], obstacle: true },
             //TV icon
             h312783: { cmd: "text", txt: "click for presentation", url: "https://inky-simple-dryosaurus.glitch.me/", label: "info", point: [34, 78], obstacle: true },
             h00ffff: { cmd: "text", txt: "click for presentation", url: "https://eye-orchestra-final.glitch.me/", label: "info", point: [64, 78], obstacle: true },
@@ -259,7 +259,7 @@ module.exports.ROOMS = {
 
     },
 
-    drawRoom: {
+    draw: {
         bg: "drawRoom-bg.png",
         avatarScale: 2,
         tint: "#ffbbb8",
@@ -269,7 +269,7 @@ module.exports.ROOMS = {
         area: "drawRoom-areas.png",
         areaColors: {
             //left
-            hffec27: { cmd: "enter", room: "animalRoom", label: "Animal Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
+            hffec27: { cmd: "enter", room: "animal", label: "Animal Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
             //projects by Alex and Vince
             h00ff00: { cmd: "text", txt: "Project by Alex Greer\nA simple teamwork game, with the aim of creating a masterpiece together using only shapes and the colours in your environment.", align: "left", lines: 5, url: "https://draw-together-again.glitch.me/", label: "Draw Together Again", point: [34, 78], obstacle: true },
             h0000ff: { cmd: "text", txt: "Project by Vince Ibay\nTogether is a family friendly multiplayer digital canvas, where kids can create, play and socialise.", align: "left", lines: 5, url: "https://better-together.glitch.me/", label: "Together", point: [92, 78], obstacle: true },
@@ -282,7 +282,7 @@ module.exports.ROOMS = {
         }
     },
 
-    viewRoom: {
+    view: {
         bg: "viewRoom-bg.png",
         avatarScale: 2,
         frames: 4,
@@ -294,7 +294,7 @@ module.exports.ROOMS = {
         spawn: [15, 77, 113, 96],
         areaColors: {
             //right
-            h00e436: { cmd: "enter", room: "animalRoom", label: "Animal Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
+            h00e436: { cmd: "enter", room: "animal", label: "Animal Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //projects
             ha8e72e: { cmd: "text", txt: "Project by Morgan Williams\nAn interactive randomised location of a view of a city, ever time you reload the page. Try moving one hand then the other up and down to see what happens.", align: "left", lines: 6, url: "https://views-from-a-room.glitch.me/", label: "Views from a Room", point: [34, 78], obstacle: true },
             hffff00: { cmd: "text", txt: "Project by Ella Jonquil Fitzgerald", align: "left", lines: 5, url: "https://webcam-socket-io.glitch.me/", label: "Quarantine Kiss", point: [64, 78], obstacle: true },
