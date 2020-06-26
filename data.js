@@ -198,9 +198,9 @@ module.exports.ROOMS = {
             hff0000: { cmd: "text", txt: "Project by Val Toro\nWatch the tale of a lonely ghost before joining them in the next realm.", align: "left", lines: 4, url: "https://ghost-tales.glitch.me/", label: "Ghost Tales", point: [64, 78], obstacle: true },
             h0000ff: { cmd: "text", txt: "Project by Riya Maria", align: "left", lines: 4, url: "https://allseeing--eyes.glitch.me/", label: "all seeing eyes", point: [92, 78], obstacle: true },
             //TV icons
-            he6007e: { cmd: "text", txt: "click for presentation", url: "https://speech-bubbles.glitch.me/", label: "info", point: [34, 78], obstacle: true },
-            h312783: { cmd: "text", txt: "click for presentation", url: "https://ghost-tales.glitch.me/", label: "info", point: [64, 78], obstacle: true },
-            hf39200: { cmd: "text", txt: "click for presentation", url: "https://allseeing--eyes.glitch.me/", label: "info", point: [92, 78], obstacle: true }          
+            he6007e: { cmd: "video", url: "https://www.youtube.com/watch?v=KRUbhRKiauA", artistname: "Jessie Zhang", point: [34, 78], obstacle: true },
+            h312783: { cmd: "video", url: "https://ghost-tales.glitch.me/", artistname: "Val Toro", point: [64, 78], obstacle: true },
+            hf39200: { cmd: "texvideot", url: "https://allseeing--eyes.glitch.me/", artistname: "Riya Maria", point: [92, 78], obstacle: true }          
         }
     },
 

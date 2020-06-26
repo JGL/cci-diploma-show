@@ -173,6 +173,7 @@ var nextCommand;
 var areaLabel;
 var labelColor;
 var rolledSprite;
+var studentName;
 
 //GUI
 //shows up at the beginning, centered, overlapped to room in lurk mode
@@ -1346,7 +1347,7 @@ function update() {
     drawSprites();
 
     //GUI
-    if (nickName != "" && rolledSprite == null && areaLabel == "")
+    if (nickName != "" && rolledSprite == null && areaLabel == "" && studentName == "")
       animation(walkIcon, floor(mouseX + 6), floor(mouseY - 6));
 
     //draw all the speech bubbles lines first only if the players have not moves since speaking
@@ -1389,7 +1390,10 @@ function update() {
     var labelColor = LABEL_NEUTRAL_COLOR;
 
     //if lurking disable arealabel
-    if (nickName == "") label = "";
+    if (nickName == "") {
+      label = "";
+      studentName = "";
+    }
 
     //player and sprites label override areas
     if (rolledSprite != null) {
@@ -1406,7 +1410,7 @@ function update() {
     if (me != null) if (label == me.nickName) label = "";
 
     //draw rollover label
-    if (label != "" && longText == "") {
+    if (label != "" && longText == "" && studentName == "") {
       textFont(font, FONT_SIZE);
       textAlign(LEFT, BASELINE);
       var lw = textWidth(label);
@@ -1429,6 +1433,7 @@ function update() {
 
     //long text above everything
     if (longText != "" && nickName != "") {
+      studentName = "";
       noStroke();
       textFont(font, FONT_SIZE);
       textLeading(TEXT_LEADING);
@@ -1484,6 +1489,10 @@ function update() {
         );
       }
     } //end long text
+
+    if (studentName != "") {
+      playIconLabel(studentName);
+    }
 
     if (nickName == "" && (logoCounter < LOGO_STAY || LOGO_STAY == -1)) {
       logoCounter += deltaTime;
@@ -1873,6 +1882,7 @@ function mouseMoved() {
 
     var c = areas.get(mx, my);
     areaLabel = "";
+    studentName = "";
 
     if (alpha(c) != 0 && me.room != null) {
       //walk icon?
@@ -1884,6 +1894,9 @@ function mouseMoved() {
           if (command.label != null) {
             areaLabel = command.label;
           }
+          if (command.artistname != null) {
+            studentName = command.artistname;
+        }
       }
     }
   }
@@ -1900,7 +1913,6 @@ function canvasPressed() {
 
 //when I click to move
 function canvasReleased() {
-  //print("CLICK " + mouseButton);
 
   if (screen == "error") {
   } else if (nickName != "" && screen == "game" && mouseButton == RIGHT) {
@@ -2043,6 +2055,7 @@ function getCommand(c, roomId) {
 
 function executeCommand(c) {
   areaLabel = "";
+  studentName = "";
   //print("Executing command " + c.cmd);
 
   switch (c.cmd) {
@@ -2105,9 +2118,8 @@ function executeCommand(c) {
       break;
 
     case "video":
-      if (c.txt != null) {
-        if (c.url == null) longTextLink = "";
-        else longTextLink = c.url;
+      if (c.url != null) {
+        window.open(c.url, "_blank");
       } else print("Missing URL");
       break;
   }
@@ -2493,3 +2505,37 @@ window.addEventListener("focus", function () {
 window.addEventListener("blur", function () {
   if (socket != null && me != null) socket.emit("blur", { room: me.room });
 });
+
+// Show student name and further info
+function playIconLabel(an) {
+  // an = artist name
+
+  let xPos = mouseX;
+  let xPosRounded = floor(xPos);
+  let spaceBetweenLabels = 2;
+
+  //click to view label
+  let ctv = "Click to view video."; //label text
+  let ctv_width = textWidth(ctv); //text width
+  let ctv_l_width = ctv_width + TEXT_PADDING * 2; //label width
+  let ctv_l_height = TEXT_H + TEXT_PADDING * 2; //label height
+  let ctv_xPos = xPosRounded + TEXT_PADDING; //text x position
+  let ctv_yPos = floor(mouseY - TEXT_PADDING); //text y position
+  let ctv_l_yPos = floor(mouseY - ctv_l_height); // top left corner y position
+
+  let an_t = "By " + an; //label text
+  let an_t_width = textWidth(an_t); //text width
+  let an_l_width = an_t_width + TEXT_PADDING * 2 + 1; //label width;
+  let an_l_height = TEXT_H + TEXT_PADDING * 2; //label height
+  let an_t_xPos = xPosRounded + TEXT_PADDING;
+  let an_t_yPos = ctv_yPos - an_l_height - spaceBetweenLabels; //text y position
+  let an_l_yPos = floor(mouseY - (an_l_height + spaceBetweenLabels + ctv_l_height)); //top left corner y position
+
+  fill(UI_BG); //rectangle fill
+  noStroke(); //no stroke
+  rect(xPosRounded, an_l_yPos, an_l_width, an_l_height); //artist name label rectangle
+  rect(xPosRounded, ctv_l_yPos, ctv_l_width, ctv_l_height); //click to view label rectangle
+  fill(LABEL_NEUTRAL_COLOR); //text label colour
+  text(an_t, an_t_xPos, an_t_yPos); //artist name label text
+  text(ctv, ctv_xPos, ctv_yPos); //click to view text
+}
