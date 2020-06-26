@@ -10,7 +10,6 @@ ADMINS=username1|pass1,username2|pass2
 PORT = 3000
 */
 
-
 var port = process.env.PORT || 3000;
 
 //number of emits per second allowed for each player, after that ban the IP.
@@ -33,7 +32,6 @@ var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 var Filter = require("bad-words");
 
-
 //time before disconnecting (forgot the tab open?)
 var ACTIVITY_TIMEOUT = 10 * 60 * 1000;
 //should be the same as index maxlength="16"
@@ -54,8 +52,7 @@ ADMINS=username1|pass1,username2|pass2
 
 Admin logs in as username|password in the normal field
 If combo user|password is correct (case insensitive) mark the player as admin on the server side
-The "username|password" remains stored on the client as var nickName 
-and it's never shared to other clients, unlike player.nickName
+The "username|password" remains stored on the client as var nickName and it's never shared to other clients, unlike player.nickName
 
 admins can call admin commands from the chat like /kick nickName
 */
@@ -80,13 +77,8 @@ var banned = [];
 //when a client connects serve the static files in the public directory ie public/index.html
 app.use(express.static("public"));
 
-
-
-
-
 //when a client connects the socket is established and I set up all the functions listening for events
 io.on("connection", function (socket) {
-
 
     //this bit (middleware?) catches all incoming packets
     //I use to make my own lil rate limiter without unleashing 344525 dependencies
@@ -111,7 +103,6 @@ io.on("connection", function (socket) {
         next();
     });
 
-
     //this appears in the terminal
     console.log("A user connected");
 
@@ -124,7 +115,6 @@ io.on("connection", function (socket) {
         //console.log("Number of sockets " + Object.keys(io.sockets.connected).length);
 
         try {
-
 
             //if running locally it's not gonna work
             var IP = "";
@@ -160,7 +150,6 @@ io.on("connection", function (socket) {
                     socket.emit("errorMessage", "You have been banned");
                     socket.disconnect();
                 }
-
             }
 
             //prevent secret rooms to be joined through URL
@@ -237,7 +226,6 @@ io.on("connection", function (socket) {
                     if (playerInfo.nickName != "")
                         visits++;
 
-
                     //send all players information about the new player
                     //upon creation destination and position are the same 
                     io.to(playerInfo.room).emit("playerJoined", newPlayer);
@@ -257,7 +245,6 @@ io.on("connection", function (socket) {
                         MOD[playerInfo.room + "Join"](newPlayer, playerInfo.room);
                     }
 
-
                     console.log("There are now " + Object.keys(gameState.players).length + " players on this server. Total visits " + visits);
                 }
             }
@@ -267,8 +254,7 @@ io.on("connection", function (socket) {
         }
     });
 
-    //when a client disconnects I have to delete its player object
-    //or I would end up with ghost players
+    //when a client disconnects I have to delete its player object or I would end up with ghost players
     socket.on("disconnect", function () {
         try {
             console.log("Player disconnected " + socket.id);
@@ -276,7 +262,6 @@ io.on("connection", function (socket) {
             var playerObject = gameState.players[socket.id];
 
             io.sockets.emit("playerLeft", { id: socket.id, disconnect: true });
-
 
             //check if there is a custom function in the MOD to call at this point
             if (playerObject != null)
@@ -287,8 +272,7 @@ io.on("connection", function (socket) {
                     }
                 }
 
-            //send the disconnect
-            //delete the player object
+            //send the disconnect and delete the player object
             delete gameState.players[socket.id];
             console.log("There are now " + Object.keys(gameState.players).length + " players on this server");
         }
@@ -316,7 +300,6 @@ io.on("connection", function (socket) {
             }
         }
     });
-
 
     //when I receive a talk send it to everybody in the room
     socket.on("talk", function (obj) {
@@ -372,14 +355,12 @@ io.on("connection", function (socket) {
                                 console.log("MOD: Warning - TalkFilter should return a message ");
                                 obj.message = "";
                             }
-
                         }
 
                         if (obj.message != "")
                             io.to(obj.room).emit("playerTalked", { id: socket.id, color: obj.color, message: obj.message, x: obj.x, y: obj.y });
                     }
                 }
-
                 //update the last message time
                 if (gameState.players[socket.id] != null) {
                     gameState.players[socket.id].lastMessage = time;
@@ -390,9 +371,7 @@ io.on("connection", function (socket) {
             console.log("Error on talk, object malformed from" + socket.id + "?");
             console.error(e);
         }
-
     });
-
 
     //when I receive a move sent it to everybody
     socket.on("changeRoom", function (obj) {
@@ -416,7 +395,6 @@ io.on("connection", function (socket) {
                 socket.leave(obj.from);
                 socket.join(obj.to);
 
-
                 //broadcast the change to everybody in the current room
                 //from the client perspective leaving the room is the same as disconnecting
                 io.to(obj.from).emit("playerLeft", { id: socket.id, room: obj.from, disconnect: false });
@@ -433,8 +411,6 @@ io.on("connection", function (socket) {
                     //call it!
                     MOD[obj.from + "Leave"](playerObject, obj.from);
                 }
-
-
 
                 io.to(obj.to).emit("playerJoined", playerObject);
 
@@ -519,7 +495,6 @@ io.on("connection", function (socket) {
         }
     });
 
-
     //generic action listener, looks for a function with that id in the mod 
     socket.on("action", function (aId) {
 
@@ -532,7 +507,6 @@ io.on("connection", function (socket) {
 
 });
 
-
 //rate limiting - clears the flood count
 setInterval(function () {
     for (var id in gameState.players) {
@@ -541,8 +515,6 @@ setInterval(function () {
         }
     }
 }, 1000);
-
-
 
 function validateName(nn) {
 
@@ -592,7 +564,6 @@ function validateName(nn) {
     //i hate this double negative logic but I hate learning regex more
     var res = nn.match(/^([a-zA-Z0-9 !@#$%&*(),._-]+)$/);
 
-
     if (res == null)
         return 3
     else if (duplicate || reserved)
@@ -605,7 +576,6 @@ function validateName(nn) {
         return 1
 
 }
-
 
 //parse a potential admin command
 function adminCommand(adminSocket, str) {
@@ -736,7 +706,6 @@ function adminCommand(adminSocket, str) {
                     }
                 });
                 break;
-
         }
     }
     catch (e) {
@@ -782,7 +751,6 @@ function IPByName(nick) {
     return IP;
 }
 
-
 //listen to the port 3000 this powers the whole socket.io
 http.listen(port, function () {
     console.log("listening on *:3000");
@@ -803,8 +771,6 @@ setInterval(function () {
         }
     }
 }, 1000);
-
-
 
 //in my gallery people can swear but not use slurs, override bad-words list, and add my own, pardon for my french
 let myBadWords = ["asshole", "chink", "cock", "cripple", "cunt", "cunts", "dick", "dickhead", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fuck", "jap", "homo", "nigger", "niggers", "n1gger", "nigg3r", "shit"];
@@ -840,7 +806,7 @@ global.NPC = function (o) {
     else
         this.labelColor = "#FFFFFF"; //oops server doesn't know about colors
 
-    //mimicks the emission from players
+    //mimics the emission from players
     this.sendIntroTo = function (pId) {
         //print("HELLO I"m " + this.nickName + " in " + this.room);
         //If I"m not the new player send an introduction to the new player 
@@ -876,7 +842,6 @@ global.NPC = function (o) {
         //update for future intros
         this.destinationX = this.x = dx;
         this.destinationY = this.y = dy;
-
     }
 
     this.talk = function (message) {
@@ -890,16 +855,13 @@ global.NPC = function (o) {
         });
     }
 
-
     this.delete = function () {
         io.to(this.room).emit("playerLeft", { id: this.id, room: this.room, disconnect: true });
         delete gameState.NPCs[this.id];
     }
 
-
     //add to NPC list
     gameState.NPCs[this.id] = this;
-
 }
 
 //modding

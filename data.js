@@ -305,5 +305,4 @@ module.exports.ROOMS = {
             hff0000: { cmd: "text", txt: "click for presentation", url: "https://root-dandy-position.glitch.me/", label: "info", point: [92, 78], obstacle: true }            
         }
     },
-
 };
