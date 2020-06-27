@@ -118,7 +118,7 @@ module.exports.ROOMS = {
             h00ff00: { cmd: "text", txt: "Project by Edward Martin\n\nA prototype for a social networking app that uses your daily emotions to communicate with your friends and family.\n\nClick to view project.", align: "left", lines: 8, url: "https://2020-06-06-regard-socket-app.glitch.me/", label: "Regard.", point: [34, 78], obstacle: true },
             hff0000: { cmd: "text", txt: "Project by Zhiqin Lu\n\nA web-based app to play and chat with images together.\n\nClick to view project.", align: "left", lines: 6, url: "https://observe-.glitch.me/", label: "Observe", point: [64, 78], obstacle: true },
             h0000ff: { cmd: "text", txt: "Project by Maximilian Zimmerer\n\nCommon Denominator is a web-based interaction that uses computer vision and socket connections to merge people's faces in real-time. The motivation behind this project was to create moments of joy between a pair of users and offer a digital sense of togetherness.\n\nClick to view project.", align: "left", lines: 12, url: "https://common-denominator.glitch.me/", label: "Common Denominator", point: [92, 78], obstacle: true },
-            hff00ff: { cmd: "text", txt: "Project by Thomas Bugg\n\nClick to view project.", align: "left", lines: 3, url: "https://manipulated-living.glitch.me/", label: "Manipulated Living", point: [100, 88], obstacle: true },
+            hff00ff: { cmd: "text", txt: "Project by Thomas Bugg\n\nManipulated Living is a virtual space that erases the detachment induced by the boundaries of our screens and enables users to feel physically connected while being apart.\n\nClick to view project.", align: "left", lines: 10, url: "https://manipulated-living.glitch.me/", label: "Manipulated Living", point: [100, 88], obstacle: true },
             //TV icons
             hf39200: { cmd: "video", url: "https://2020-06-06-regard-socket-app.glitch.me/", student: 'ed', artistname: "Edward Martin", point: [34, 78], obstacle: true },
             h00b9ee: { cmd: "video", url: "https://observe-.glitch.me/", student: 'zhiqin', artistname: "Zhiqin Lu", point: [64, 78], obstacle: true },
@@ -146,17 +146,10 @@ module.exports.ROOMS = {
             h0000ff: { cmd: "text", txt: "Project by Kirsty Proud\n\nClick to view project.", align: "left", lines: 3, url: "https://acid-with-highscore.glitch.me/", label: "Acid", point: [92, 78], obstacle: true },
             hff00ff: { cmd: "text", txt: "Project by Rukiah Zakaria\n\nA body instrument, music video making place in space!\n\nClick to view project.", align: "left", lines: 6, url: "https://breakdown-the-mimi-mix.glitch.me/", label: "Breakdown the Mimi Mix", point: [10, 86], obstacle: true },
             //TV icons
-<<<<<<< HEAD
-            h312783: { cmd: "video", url: "https://inky-simple-dryosaurus.glitch.me/", artistname: "Llorec Garcia Bas", point: [34, 78], obstacle: true },
-            h00ffff: { cmd: "video", url: "https://eye-orchestra.glitch.me/", artistname: "Laiqa Mohid", point: [64, 78], obstacle: true },
-            he6007e: { cmd: "video", url: "https://acid-with-highscore.glitch.me/", artistname: "Kirsty Proud", point: [92, 78], obstacle: true },
-            hf39200: { cmd: "video", url: "https://breakdown-the-mimi-mix.glitch.me/", artistname: "Rukiah Zakaria", point: [10, 86], obstacle: true }
-=======
             h312783: { cmd: "video", url: "https://inky-simple-dryosaurus.glitch.me/", student: 'llorenc', artistname: "Llorec Garcia Bas", point: [34, 78], obstacle: true },
-            h00ffff: { cmd: "video", url: "https://eye-orchestra-final.glitch.me/", student: 'laiqa', artistname: "Laiqa Mohid", point: [64, 78], obstacle: true },
+            h00ffff: { cmd: "video", url: "https://eye-orchestra.glitch.me/", student: 'laiqa', artistname: "Laiqa Mohid", point: [64, 78], obstacle: true },
             he6007e: { cmd: "video", url: "https://acid-with-highscore.glitch.me/", student: 'kirsty', artistname: "Kirsty Proud", point: [92, 78], obstacle: true },
             hf39200: { cmd: "video", url: "https://breakdown-the-mimi-mix.glitch.me/", student: 'rukiah', artistname: "Rukiah Zakaria", point: [10, 86], obstacle: true }
->>>>>>> 1c7973986074e1c940c7f746beba6a1ef1c4d854
         }
     },
 
