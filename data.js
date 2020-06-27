@@ -58,7 +58,7 @@ module.exports.ROOMS = {
             ha8e72e: { cmd: "text", txt: "Project by Eunah Lee\nHelp Haru find its way back home!\nAn interactive storybook for kids", align: "left", lines: 3, url: "https://eunah-lee-storybook5-6.glitch.me/", label: "Haru's Adventure", point: [34, 73], obstacle: false },
             hff0000: { cmd: "text", txt: "Project by Stacy\nBoggle is: A website for dog lovers,\nA place to loose yourself in a variety of doggy experiences:\nWear a dog crown\nDraw psychedelic dogs with your nose\nOr play a game of eat the treats using your dog head hoop to catch the dog biscuits", align: "left", lines: 11, url: "https://dog-game-website-.glitch.me/", label: "Boggle", point: [74, 73], obstacle: false },
             //TV icons
-            hf39200: { cmd: "text", txt: "click for presentation", url: "https://harus-adventure.glitch.me", label: "info", point: [34, 73], obstacle: false},
+            hf39200: { cmd: "text", txt: "click for presentation", url: "https://harus-adventure.glitch.me/", label: "info", point: [34, 73], obstacle: false},
             he6007e: { cmd: "text", txt: "click for presentation", url: "https://dog-game-website-.glitch.me/", label: "info", point: [74, 73], obstacle: false }
         },
         things: {
