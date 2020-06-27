@@ -1,5 +1,5 @@
 //settings are just variables that can be sent to the client from the server
-//they are either related to the rooms or shared with the server 
+//they are either related to the rooms or shared with the server
 module.exports.SETTINGS = {
     //if not specified by the url where is the starting point
     defaultRoom: "street",
@@ -35,7 +35,7 @@ module.exports.ROOMS = {
         spawn: [14, 89, 119, 98],
         areaColors: {
             //h will be replaced by #
-            hff77a8: { cmd: "enter", room: "security", label: "Security", point: [64, 87], enterPoint: [64, 90], obstacle: false  },
+            hff77a8: { cmd: "enter", room: "reception", label: "Reception", point: [64, 87], enterPoint: [64, 90], obstacle: false  },
         }
     },
 
@@ -84,7 +84,7 @@ module.exports.ROOMS = {
             //right
             h00e436: { cmd: "enter", room: "social", label: "Social Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //down
-            hff77a8: { cmd: "enter", room: "security", label: "Security", point: [99, 73], enterPoint: [99, 73], obstacle: false },
+            hff77a8: { cmd: "enter", room: "reception", label: "Reception", point: [99, 73], enterPoint: [99, 73], obstacle: false },
             //up
             h29adff: { cmd: "enter", room: "animal", label: "Animal Room", point: [30, 73], enterPoint: [99, 73], obstacle: false },
             //projects
@@ -153,8 +153,7 @@ module.exports.ROOMS = {
         }
     },
 
-    security: {
-
+    reception: {
         bg: "securityRoom-bg.png",
         avatarScale: 2,
         pageBg: pinkBG,
@@ -172,12 +171,14 @@ module.exports.ROOMS = {
             //up
             hff77a8: { cmd: "enter", room: "care", label: "Care Room", point: [99, 73], enterPoint: [99, 73], obstacle: false },
             //back outside
-         
+
             hbe1250: { cmd: "enter", room: "street", label: "Entrance", point: [63, 98], enterPoint: [64, 98], obstacle: false },
-            
+
         },
         things: {
-            guard: { file: "characters/museumGuard.png", frames: 1, frameDelay: 30, position: [13, 56], label: "Security" }
+            securityDesk: { file: "objects/securityDesk.png", frames: 1, frameDelay: 30, position: [43, 65], label: "Reception Desk" },
+            guard: { file: "characters/museumGuard.png", frames: 1, frameDelay: 30, position: [47, 58], label: "Security" },
+            plant: { file: "objects/plant.png", frames: 1, frameDelay: 30, position: [12, 62], label: "Plant" }
         }
 
     },
@@ -192,7 +193,7 @@ module.exports.ROOMS = {
         area: "galleryRoom-areas.png",
         areaColors: {
             //left
-            hffec27: { cmd: "enter", room: "security", label: "Security", point: [10, 86], enterPoint: [114, 86], obstacle: false },
+            hffec27: { cmd: "enter", room: "reception", label: "Reception", point: [10, 86], enterPoint: [114, 86], obstacle: false },
             //Projects by: Jessie, Val and Riya
             h00ff00: { cmd: "text", txt: "Project by Jessie Zhang\n\nBlow digital bubbles with sound!\n\nClick to view project.", align: "left", lines: 5, url: "https://speech-bubbles.glitch.me/", label: "Speech Bubbles", point: [34, 78], obstacle: true },
             hff0000: { cmd: "text", txt: "Project by Val Toro\n\nWatch the tale of a lonely ghost before joining them in the next realm.\n\nClick to view project.", align: "left", lines: 7, url: "https://ghost-tales.glitch.me/", label: "Ghost Tales", point: [64, 78], obstacle: true },
@@ -200,7 +201,7 @@ module.exports.ROOMS = {
             //TV icons
             he6007e: { cmd: "video", url: "https://www.youtube.com/watch?v=KRUbhRKiauA", student: 'jessie', artistname: "Jessie Zhang", point: [34, 78], obstacle: true },
             h312783: { cmd: "video", url: "https://ghost-tales.glitch.me/", student: 'val', artistname: "Val Toro", point: [64, 78], obstacle: true },
-            hf39200: { cmd: "video", url: "https://allseeing--eyes.glitch.me/", student: 'riya', artistname: "Riya Maria", point: [92, 78], obstacle: true }          
+            hf39200: { cmd: "video", url: "https://allseeing--eyes.glitch.me/", student: 'riya', artistname: "Riya Maria", point: [92, 78], obstacle: true }
         }
     },
 
@@ -214,20 +215,20 @@ module.exports.ROOMS = {
         area: "foodRoom-areas.png",
         areaColors: {
             //left
-            hbe1250: { cmd: "enter", room: "security", label: "Security", point: [34, 94], enterPoint: [34, 74], obstacle: false },
+            hbe1250: { cmd: "enter", room: "reception", label: "Reception", point: [34, 94], enterPoint: [34, 74], obstacle: false },
             //projects
             hffff00: { cmd: "text", txt: "Project by Khalisha Tambunan\n\nIt's raining cats and dogs... and everything in between.\n\nClick to view project.", align: "left", lines: 6, url: "https://testkitsc.glitch.me/", label: "Kitschen Dreams", point: [34, 78], obstacle: true },
             hff0000: { cmd: "text", txt: "Project by Kamil Sznajder\n\nA simple screen game, in which one becomes a lizard, running on a red rock. Using your phone flashlight, your task is to eat as much bugs as possible while watching out for predators.\n\nClick to view project.", align: "left", lines: 10, url: "https://time-to-eat.glitch.me/", label: "Time to Eat a Bug!", point: [94, 78], obstacle: true },
             //TV icons
             hf39200: { cmd: "video", url: "https://testkitsc.glitch.me/", student: 'khalisha', artistname: "Khalisha Tambunan", point: [34, 78], obstacle: true },
-            h006b2d: { cmd: "video", url: "https://time-to-eat.glitch.me/", student: 'kamil', artistname: "Kamil Sznajder", point: [94, 78], obstacle: true }           
+            h006b2d: { cmd: "video", url: "https://time-to-eat.glitch.me/", student: 'kamil', artistname: "Kamil Sznajder", point: [94, 78], obstacle: true }
         },
         things: {
             table: { file: "objects/table.png", frames: 1, frameDelay: 30, position: [65, 80], label: "Food!" },
             pizza: {file: "objects/pizza.png", frames: 2, frameDelay: 30, position: [104, 65], label: "Giant pizza!"}
         }
     },
-  
+
 
     game: {
         bg: "gameRoom-bg.png",
@@ -241,7 +242,7 @@ module.exports.ROOMS = {
         spawn: [15, 77, 113, 96],
         areaColors: {
             //right
-            h00e436: { cmd: "enter", room: "security", label: "Security", point: [117, 86], enterPoint: [12, 86], obstacle: false },
+            h00e436: { cmd: "enter", room: "reception", label: "Reception", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //projects
             hff0000: { cmd: "text", txt: "Project by Sandro Valente\n\nThe Head controlled space exploration game that is about spreading goodwill to close enough planets. Who will be the best Starseed? Will any ever reach 200 max score? Upload your high score #starseeds to enter the prize draw! Live Long & Prosper!\n\nClick to view project.", align: "left", lines: 12, url: "https://starseeds-.glitch.me/", label: "Starseeds", point: [34, 78], obstacle: true },
             hffff00: { cmd: "text", txt: "Project by Lexy Garces Beavis\n\nA game inspired by the 1975 Arcade Game: Whac-A-Mole. Use your wrists to move around the rainbows to hit the sun. Encouraging movement as a form of self-care.\n\nClick to view project.", align: "left", lines: 9, url: "https://quaroutine-the-game1.glitch.me/", label: "Quaroutine", point: [64, 78], obstacle: true },
@@ -303,7 +304,7 @@ module.exports.ROOMS = {
             //TV icons
             hf39200: { cmd: "video", url: "https://views-from-a-room.glitch.me/", student: 'morgan', artistname: "Morgan Williams", point: [34, 78], obstacle: true },
             hff00ff: { cmd: "video", url: "https://webcam-socket-io.glitch.me/", student: 'ella', artistname: "Ella Jonquil Fitzgerald", point: [64, 78], obstacle: true },
-            hff0000: { cmd: "video", url: "https://root-dandy-position.glitch.me/", student: 'cat', artistname: "Catherine Rose Lavender", point: [92, 78], obstacle: true }            
+            hff0000: { cmd: "video", url: "https://root-dandy-position.glitch.me/", student: 'cat', artistname: "Catherine Rose Lavender", point: [92, 78], obstacle: true }
         }
     },
 };
