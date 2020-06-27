@@ -39,8 +39,9 @@ First make sure you sure you have [git](https://git-scm.com/) installed
 * Make sure you have [Node.js](https://nodejs.org/en/) installed
 * Click on the **Clone or download** button in this repo to get its url
 * Clone using `git clone "url"`on your command line
-* Navigate to the repository on your command line then type in `node server.js` to run.
-* Go to **localhost:3000** to view
+* Navigate to the repository on your command line 
+* Run `npm install` on your command line to download all required node modules
+* Type in `node server.js` to run and go to **localhost:3000** to view
 
 ## Branching: work on code without affecting the master branch
 
