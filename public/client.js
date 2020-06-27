@@ -175,6 +175,10 @@ var labelColor;
 var rolledSprite;
 var studentName;
 
+//
+var student_name;
+var video_active;
+
 //GUI
 //shows up at the beginning, centered, overlapped to room in lurk mode
 var logo;
@@ -1395,6 +1399,11 @@ function update() {
       studentName = "";
     }
 
+    if (video_active) {
+      studentName = "";
+      label = "";
+    }
+
     //player and sprites label override areas
     if (rolledSprite != null) {
       if (rolledSprite.label != null && rolledSprite.label != "") {
@@ -1498,6 +1507,7 @@ function update() {
       logoCounter += deltaTime;
       animation(logo, floor(width / 2), floor(height / 2));
     }
+
   } //end game
 }
 
@@ -2118,9 +2128,11 @@ function executeCommand(c) {
       break;
 
     case "video":
-      if (c.url != null) {
-        window.open(c.url, "_blank");
-      } else print("Missing URL");
+      if (c.student != null) {
+        student_name = c.student;
+        var event = new Event('iconclicked', {bubbles: true});
+        canvas_container.dispatchEvent(event);
+      } else print("Video did not work :(");
       break;
   }
 }

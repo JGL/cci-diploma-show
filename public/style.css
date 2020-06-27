@@ -295,3 +295,12 @@ canvas {
 	max-height: 100%;
 	object-fit: contain;
 }
+
+#player {
+	display:none;
+	position: absolute;
+	z-index: 1000;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
