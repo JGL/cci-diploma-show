@@ -142,12 +142,12 @@ module.exports.ROOMS = {
             h00e436: { cmd: "enter", room: "care", label: "Care Room", point: [117, 86], enterPoint: [12, 86], obstacle: false },
             //projects
             hff0000: { cmd: "text", txt: "Project by Llorenc Garcia Bas\n\nA web based instrumental music app inspired by the Theremin that uses real-time body movements to manipulate sounds.\n\nClick to view project.", align: "left", lines: 8, url: "https://inky-simple-dryosaurus.glitch.me/", label: "Theremax", point: [34, 78], obstacle: true },
-            hffff00: { cmd: "text", txt: "Project by Laiqa Mohid\n\nA musical collaboration built through eye contact\n\nClick to view project.", align: "left", lines: 6, url: "https://eye-orchestra-final.glitch.me/", label: "Eye Orchestra", point: [64, 78], obstacle: true },
+            hffff00: { cmd: "text", txt: "Project by Laiqa Mohid\n\nA musical collaboration built through eye contact\n\nClick to view project.", align: "left", lines: 6, url: "https://eye-orchestra.glitch.me/", label: "Eye Orchestra", point: [64, 78], obstacle: true },
             h0000ff: { cmd: "text", txt: "Project by Kirsty Proud\n\nClick to view project.", align: "left", lines: 3, url: "https://acid-with-highscore.glitch.me/", label: "Acid", point: [92, 78], obstacle: true },
             hff00ff: { cmd: "text", txt: "Project by Rukiah Zakaria\n\nA body instrument, music video making place in space!\n\nClick to view project.", align: "left", lines: 6, url: "https://breakdown-the-mimi-mix.glitch.me/", label: "Breakdown the Mimi Mix", point: [10, 86], obstacle: true },
             //TV icons
             h312783: { cmd: "video", url: "https://inky-simple-dryosaurus.glitch.me/", artistname: "Llorec Garcia Bas", point: [34, 78], obstacle: true },
-            h00ffff: { cmd: "video", url: "https://eye-orchestra-final.glitch.me/", artistname: "Laiqa Mohid", point: [64, 78], obstacle: true },
+            h00ffff: { cmd: "video", url: "https://eye-orchestra.glitch.me/", artistname: "Laiqa Mohid", point: [64, 78], obstacle: true },
             he6007e: { cmd: "video", url: "https://acid-with-highscore.glitch.me/", artistname: "Kirsty Proud", point: [92, 78], obstacle: true },
             hf39200: { cmd: "video", url: "https://breakdown-the-mimi-mix.glitch.me/", artistname: "Rukiah Zakaria", point: [10, 86], obstacle: true }
         }
@@ -245,7 +245,7 @@ module.exports.ROOMS = {
             //projects
             hff0000: { cmd: "text", txt: "Project by Sandro Valente\n\nThe Head controlled space exploration game that is about spreading goodwill to close enough planets. Who will be the best Starseed? Will any ever reach 200 max score? Upload your high score #starseeds to enter the prize draw! Live Long & Prosper!\n\nClick to view project.", align: "left", lines: 12, url: "https://starseeds-.glitch.me/", label: "Starseeds", point: [34, 78], obstacle: true },
             hffff00: { cmd: "text", txt: "Project by Lexy Garces Beavis\n\nA game inspired by the 1975 Arcade Game: Whac-A-Mole. Use your wrists to move around the rainbows to hit the sun. Encouraging movement as a form of self-care.\n\nClick to view project.", align: "left", lines: 9, url: "https://quaroutine-the-game1.glitch.me/", label: "Quaroutine", point: [64, 78], obstacle: true },
-            h0000ff: { cmd: "text", txt: "Project by Dejana Draganić\n\nHow many bubbles can you pop?? Designed to trigger a 30 second burst of movement.\n\nClick to view project.", align: "left", lines: 6, url: "https://shake-it-out-.glitch.me/", label: "Shake it Out!", point: [92, 78], obstacle: true },
+            h0000ff: { cmd: "text", txt: "Project by Dejana Draganić\n\nHow many bubbles can you pop?? Designed to trigger a 30 second burst of movement.\n\nClick to view project.", align: "left", lines: 7, url: "https://shake-it-out-.glitch.me/", label: "Shake it Out!", point: [92, 78], obstacle: true },
             hff00ff: { cmd: "text", txt: "Project by Martin Del Busto\n\nPixelated is a game about choosing the correct pixelated image using your eyes. 12 questions, 2 pixelated images per question and one correct answer.\n\nClick to view project.", align: "left", lines: 10, url: "https://pixelated.glitch.me/", label: "Pixelated", point: [10, 86], obstacle: true },
             //TV icon
             //the play icons could be in the wrong order (the projects linked were from a different room)
