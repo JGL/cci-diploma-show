@@ -9,8 +9,7 @@ If the server gets updated it can be restarted, but if there are active clients 
 */
 var VERSION = "1.0";
 
-//for testing purposes I can skip the login phase
-//and join with a random avatar
+//for testing purposes I can skip the login phase and join with a random avatar
 var QUICK_LOGIN = false;
 
 //true: preview the room as invisible user
@@ -18,8 +17,7 @@ var QUICK_LOGIN = false;
 //ignored if QUICK_LOGIN is true
 var LURK_MODE = true;
 
-//expose the room locations on the url and make them them shareable
-//you can access the world from any point. False ignores
+//expose the room locations on the url and make them them shareable; you can access the world from any point. False ignores
 var ROOM_LINK = true;
 
 //can by changed by user
@@ -31,11 +29,7 @@ var NATIVE_WIDTH = 128;
 var NATIVE_HEIGHT = 100;
 
 /*
-The original resolution (pre canvas stretch) is 128x100 multiplied by 2 because
-otherwise there wouldn't be enough room for pixel text.
-Basically the backgrounds' pixels are twice the pixels of the text.
-ASSET_SCALE is a multiplier for all backgrounds, areas, things (sprites), and coordinates
-that are natively drawn at 128x100
+The original resolution (pre canvas stretch) is 128x100 multiplied by 2 because otherwise there wouldn't be enough room for pixel text. Basically the backgrounds' pixels are twice the pixels of the text. ASSET_SCALE is a multiplier for all backgrounds, areas, things (sprites), and coordinates that are natively drawn at 128x100
 */
 var ASSET_SCALE = 2;
 
@@ -74,9 +68,7 @@ var BACKGROUNDS = "backgrounds/";
 var CHARACTERS = "characters/";
 var AUDIOFILES = "sounds/";
 
-//text vars
-//MONOSPACED FONT
-//thank you https://datagoblin.itch.io/monogram
+//text vars: MONOSPACED FONT; thank you https://datagoblin.itch.io/monogram
 var FONT_FILE = "assets/monogram_extended.ttf";
 var FONT_SIZE = 16; //to avoid blur
 var font;
@@ -84,25 +76,22 @@ var TEXT_H = 10;
 var TEXT_PADDING = 3;
 var TEXT_LEADING = TEXT_H + 4;
 
-var LOGO_FILE = "logo.png";
+var LOGO_FILE = "logo-solid.png";
 var MENU_BG_FILE = "menu_white.png";
 
 //how long does the text bubble stay
 var BUBBLE_TIME = 8;
 var BUBBLE_MARGIN = 3;
 
-//when lurking the logo can disappear
-//in millisecs, -1 forever in lurk mode
+//when lurking the logo can disappear: in millisecs, -1 forever in lurk mode
 var LOGO_STAY = -1;
 
 //default page background
 var PAGE_COLOR = "#000000";
 
-//sprite reference color for palette swap
-//hair, skin, shirt, pants
+//sprite reference color for palette swap: hair, skin, shirt, pants
 var REF_COLORS = ["#413830", "#c0692a", "#ff004d", "#29adff"];
-//the palettes that will respectively replace the colors above
-//black and brown more common
+//the palettes that will respectively replace the colors above: black and brown more common
 var HAIR_COLORS = [
   "#413830",
   "#413830",
@@ -164,7 +153,7 @@ var paletteIndex = 0;
 var LABEL_NEUTRAL_COLOR = "#FFFFFF";
 var UI_BG = "#000000";
 
-//global vars! I love global vars ///////////////////
+//global vars! I love global vars
 
 //preloaded images
 var walkSheets = [];
@@ -184,6 +173,11 @@ var nextCommand;
 var areaLabel;
 var labelColor;
 var rolledSprite;
+var studentName;
+
+//
+var student_name;
+var video_active;
 
 //GUI
 //shows up at the beginning, centered, overlapped to room in lurk mode
@@ -213,15 +207,13 @@ var errorMessage = "";
 //speech bubbles
 var bubbles = [];
 
-//when the nickName is "" the player is invisible inactive: lurk mode
-//for admins it contains the password so it shouldn't be shared
+//when the nickName is "" the player is invisible inactive: lurk mode. for admins it contains the password so it shouldn't be shared
 var nickName = "";
 
 //these are indexes of arrays not images or colors
 var currentAvatar;
 
-//these are the colors that get passed around, indexes to the respective color arrays
-//hair, skin, top, bottom
+//these are the colors that get passed around, indexes to the respective color arrays: hair, skin, top, bottom
 var currentColors = [0, 0, 0, 0];
 
 //this object keeps track of all the current players in the room, coordinates, bodies and color
@@ -243,8 +235,7 @@ var appearEffect, disappearEffect;
 var blips;
 var appearSound, disappearSound;
 
-//if the server restarts the clients reconnects seamlessly
-//don't do first log kind of things
+//if the server restarts the clients reconnects seamlessly; don't do first log kind of things
 var firstLog = true;
 
 //time since the server started
@@ -348,7 +339,7 @@ function preload() {
   menuBg = loadImage(ASSETS_FOLDER + MENU_BG_FILE);
   arrowButton = loadImage(ASSETS_FOLDER + "arrowButton.png");
 
-  var logoSheet = loadSpriteSheet(ASSETS_FOLDER + LOGO_FILE, 66, 82, 4);
+  var logoSheet = loadSpriteSheet(ASSETS_FOLDER + LOGO_FILE, 103, 81, 4);
   logo = loadAnimation(logoSheet);
   logo.frameDelay = 10;
 
@@ -525,16 +516,7 @@ function setup() {
         }
       }
 
-      /*
-                //load the misc images from data
-                var imageData = DATA.IMAGES;
-                IMAGES = {};
-                for (var i = 0; i < imageData.length; i++) {
-                    IMAGES[imageData[i][0]] = loadImage(ASSETS_FOLDER + imageData[i][1]);
-                }
-                */
-
-      //load the misc images from data
+      //load the misc sounds from data
       var soundData = DATA.SOUNDS;
       SOUNDS = {};
       for (var i = 0; i < soundData.length; i++) {
@@ -657,9 +639,7 @@ function newGame() {
     showChat();
   }
 
-  //this is not super elegant but I create another socket for the actual game
-  //because I've got the data from the server and I don't want to reinitiate everything
-  //if the server restarts
+  //this is not super elegant but I create another socket for the actual game because I've got the data from the server and I don't want to reinitiate everything if the server restarts
   if (socket != null) {
     //console.log("Lurker joins " + socket.id);
     socket.disconnect();
@@ -679,10 +659,7 @@ function newGame() {
 
   //all functions are in a try/catch to prevent a hacked client from sending garbage that crashes other clients
 
-  //if the client detects a server connection it may be because the server restarted
-  //in that case the clients reconnect automatically and are assigned new ids so I have to clear
-  //the previous player list to avoid ghosts
-  //as long as the clients are open they should not lose their avatar and position even if the server is down
+  //if the client detects a server connection it may be because the server restarted. in that case the clients reconnect automatically and are assigned new ids so I have to clear the previous player list to avoid ghosts as long as the clients are open they should not lose their avatar and position even if the server is down
   socket.on("connect", function () {
     try {
       players = {};
@@ -767,10 +744,10 @@ function newGame() {
         players[p.id] = me = new Player(p);
 
         /*
-                    me.sprite.mouseActive = false;
-                    me.sprite.onMouseOver = function () { };
-                    me.sprite.onMouseOut = function () { };
-                    */
+        me.sprite.mouseActive = false;
+        me.sprite.onMouseOver = function () { };
+        me.sprite.onMouseOut = function () { };
+        */
 
         //click on me = emote
         me.sprite.onMousePressed = function () {
@@ -788,7 +765,6 @@ function newGame() {
         else document.body.style.backgroundColor = PAGE_COLOR;
 
         //load level background
-
         if (ROOMS[p.room].bgGraphics != null) {
           //can be static or spreadsheet
           var bgg = ROOMS[p.room].bgGraphics;
@@ -818,8 +794,7 @@ function newGame() {
             createThing(thing, tId);
           } //
 
-        //start the music if any
-        //music is synched across clients
+        //start the music if any. music is synched across clients
         if (ROOMS[p.room].musicLoop != null && SOUND) {
           var vol = 1;
           if (ROOMS[p.room].musicVolume != null)
@@ -841,7 +816,6 @@ function newGame() {
         }
       } //it me
       else {
-        //
         players[p.id] = new Player(p);
 
         //console.log("I shall introduce myself to " + p.id);
@@ -980,14 +954,7 @@ function newGame() {
   //when somebody talks
   socket.on("playerTalked", function (p) {
     try {
-      console.log(
-        "new message from " +
-          p.id +
-          ": " +
-          p.message +
-          " bubble color " +
-          p.color
-      );
+      console.log("new message from " + p.id + ": " + p.message + " bubble color " + p.color);
 
       //make sure the player exists in the client
       if (players.hasOwnProperty(p.id)) {
@@ -1035,8 +1002,7 @@ function newGame() {
     }
   });
 
-  //displays a message upon connection refusal (server full etc)
-  //this is an end state and requires a refresh or a join
+  //displays a message upon connection refusal (server full etc). this is an end state and requires a refresh or a join
   socket.on("errorMessage", function (msg) {
     if (socket.id) {
       screen = "error";
@@ -1091,16 +1057,7 @@ function newGame() {
       //change the value
       dataThing[t.property] = t.value;
 
-      print(
-        "Change property " +
-          t.property +
-          " of " +
-          t.thingId +
-          " in room " +
-          t.room +
-          " to " +
-          t.value
-      );
+      print("Change property " + t.property + " of " + t.thingId + " in room " + t.room + " to " + t.value);
 
       //recreate it
       createThing(dataThing, t.thingId);
@@ -1109,9 +1066,7 @@ function newGame() {
     }
   });
 
-  //server sends out the response to the name submission, only if lurk mode is enabled
-  //it"s in a separate function because it is shared between the first provisional connection
-  //and the "real" one later
+  //server sends out the response to the name submission, only if lurk mode is enabled. it"s in a separate function because it is shared between the first provisional connection and the "real" one later
   socket.on("nameValidation", nameValidationCallBack);
 
   //when a server message arrives
@@ -1207,8 +1162,7 @@ function update() {
 
         var prevX, prevY;
 
-        //make sure the coordinates are non null since I may have created a player
-        //but I may still be waiting for the first update
+        //make sure the coordinates are non null since I may have created a player but I may still be waiting for the first update
         if (p.x != null && p.y != null) {
           //save in case of undo
           prevX = p.x;
@@ -1225,24 +1179,20 @@ function update() {
             // Calculate the distance between your destination and position
             var distance = destination.dist(position);
 
-            // this is where you actually calculate the direction
-            // of your target towards your rect. subtraction dx-px, dy-py.
+            // this is where you actually calculate the direction of your target towards your rect. subtraction dx-px, dy-py.
             var delta = destination.sub(position);
 
-            // then you're going to normalize that value
-            // (normalize sets the length of the vector to 1)
+            // then you're going to normalize that value (normalize sets the length of the vector to 1)
             delta.normalize();
 
             // then you can multiply that vector by the desired speed
             var increment = delta.mult((SPEED * deltaTime) / 1000);
 
             /*
-                        IMPORTANT
-                        deltaTime The system variable deltaTime contains the time difference between 
-                        the beginning of the previous frame and the beginning of the current frame in milliseconds.
-                        the speed is not based on the client framerate which can be variable but on the actual time that passes
-                        between frames.
-                        */
+            IMPORTANT
+            deltaTime 
+            The system variable deltaTime contains the time difference between the beginning of the previous frame and the beginning of the current frame in milliseconds. the speed is not based on the client framerate which can be variable but on the actual time that passes between frames.
+            */
 
             //increment the position
             position.add(increment);
@@ -1355,11 +1305,9 @@ function update() {
             p.stopWalkingAnimation();
           }
 
-          //The clients should never take a player to an illegal place (transparent area pixels or non walkable areas)
-          //but occasionally a dude will open the developer console and change the coordinates to make his avatar fly around
-          //Good for him! Let him have fun in his own little client!
-          //All the others players will just stop displaying and hearing him
-          //because I really don't want to enforce this on the server side
+          /*
+          The clients should never take a player to an illegal place (transparent area pixels or non walkable areas) but occasionally a dude will open the developer console and change the coordinates to make his avatar fly around. Good for him! Let him have fun in his own little client! All the others players will just stop displaying and hearing him because I really don't want to enforce this on the server side
+          */
           var illegal = isObstacle(p.x, p.y, p.room, areas);
           if (illegal) {
             //print(">>>>>>>>>>>" + p.id + " is in an illegal position<<<<<<<<<<<<<<<");
@@ -1370,7 +1318,7 @@ function update() {
             if (p.sprite != null) p.sprite.ignore = false;
           }
 
-          //////this part is only triggered by ME
+          //this part is only triggered by ME
           if (p == me) {
             //reached destination, execute action
             if (
@@ -1403,7 +1351,7 @@ function update() {
     drawSprites();
 
     //GUI
-    if (nickName != "" && rolledSprite == null && areaLabel == "")
+    if (nickName != "" && rolledSprite == null && areaLabel == "" && studentName == "")
       animation(walkIcon, floor(mouseX + 6), floor(mouseY - 6));
 
     //draw all the speech bubbles lines first only if the players have not moves since speaking
@@ -1446,7 +1394,15 @@ function update() {
     var labelColor = LABEL_NEUTRAL_COLOR;
 
     //if lurking disable arealabel
-    if (nickName == "") label = "";
+    if (nickName == "") {
+      label = "";
+      studentName = "";
+    }
+
+    if (video_active) {
+      studentName = "";
+      label = "";
+    }
 
     //player and sprites label override areas
     if (rolledSprite != null) {
@@ -1459,11 +1415,11 @@ function update() {
       }
     }
 
-    //by no circumstance show you name as label
+    //by no circumstance show your name as label
     if (me != null) if (label == me.nickName) label = "";
 
     //draw rollover label
-    if (label != "" && longText == "") {
+    if (label != "" && longText == "" && studentName == "") {
       textFont(font, FONT_SIZE);
       textAlign(LEFT, BASELINE);
       var lw = textWidth(label);
@@ -1486,6 +1442,7 @@ function update() {
 
     //long text above everything
     if (longText != "" && nickName != "") {
+      studentName = "";
       noStroke();
       textFont(font, FONT_SIZE);
       textLeading(TEXT_LEADING);
@@ -1510,9 +1467,7 @@ function update() {
         if (longTextAlign == "left") textAlign(LEFT, BASELINE);
         else textAlign(CENTER, BASELINE);
 
-        //measuring text height requires a PhD so we
-        //require the user to do trial and error and counting the lines
-        //and use some magic numbers
+        //measuring text height requires a PhD so we require the user to do trial and error and counting the lines and use some magic numbers
 
         var tw = LONG_TEXT_BOX_W - LONG_TEXT_PADDING * 2;
         var th = longTextLines * TEXT_LEADING;
@@ -1544,10 +1499,15 @@ function update() {
       }
     } //end long text
 
+    if (studentName != "") {
+      playIconLabel(studentName);
+    }
+
     if (nickName == "" && (logoCounter < LOGO_STAY || LOGO_STAY == -1)) {
       logoCounter += deltaTime;
       animation(logo, floor(width / 2), floor(height / 2));
     }
+
   } //end game
 }
 
@@ -1568,21 +1528,13 @@ function scaleCanvas() {
   }
 
   var container = document.getElementById("canvas-container");
-  container.setAttribute(
-    "style",
-    "width:" +
-      WIDTH * canvasScale +
-      "px; height: " +
-      HEIGHT * canvasScale +
-      "px"
-  );
+  container.setAttribute("style", "width:" + WIDTH * canvasScale + "px; height: " + HEIGHT * canvasScale + "px");
 
   var form = document.getElementById("interface");
   form.setAttribute("style", "width:" + WIDTH * canvasScale + "px;");
 }
 
-//I could do this in DOM (regular html and javascript elements)
-//but I want to show a canvas with html overlay
+//I could do this in DOM (regular html and javascript elements) but I want to show a canvas with html overlay
 function avatarSelection() {
   menuGroup = new Group();
   screen = "avatar";
@@ -1814,7 +1766,6 @@ function deleteAllSprites() {
 //speech bubble object
 function Bubble(pid, message, col, x, y, oy) {
   //always starts at row zero
-
   this.row = 0;
   this.pid = pid;
   this.message = message;
@@ -1893,8 +1844,7 @@ function isObstacle(x, y, room, a) {
   var obs = true;
 
   if (room != null && a != null) {
-    //you know, at this point I"m not sure if you are using assets scaled by 2 for the areas
-    //so I"m just gonna stretch the coordinates ok
+    //you know, at this point I"m not sure if you are using assets scaled by 2 for the areas so I"m just gonna stretch the coordinates ok
     var px = floor(map(x, 0, WIDTH, 0, a.width));
     var py = floor(map(y, 0, HEIGHT, 0, a.height));
 
@@ -1936,13 +1886,13 @@ function mouseMoved() {
   if (walkIcon != null) walkIcon.visible = false;
 
   if (areas != null && me != null) {
-    //you know, at this point I"m not sure if you are using assets scaled by 2 for the areas
-    //so I"m just gonna stretch the coordinates ok
+    //you know, at this point I"m not sure if you are using assets scaled by 2 for the areas so I"m just gonna stretch the coordinates ok
     var mx = floor(map(mouseX, 0, WIDTH, 0, areas.width));
     var my = floor(map(mouseY, 0, HEIGHT, 0, areas.height));
 
     var c = areas.get(mx, my);
     areaLabel = "";
+    studentName = "";
 
     if (alpha(c) != 0 && me.room != null) {
       //walk icon?
@@ -1954,6 +1904,9 @@ function mouseMoved() {
           if (command.label != null) {
             areaLabel = command.label;
           }
+          if (command.artistname != null) {
+            studentName = command.artistname;
+        }
       }
     }
   }
@@ -1970,7 +1923,6 @@ function canvasPressed() {
 
 //when I click to move
 function canvasReleased() {
-  //print("CLICK " + mouseButton);
 
   if (screen == "error") {
   } else if (nickName != "" && screen == "game" && mouseButton == RIGHT) {
@@ -2012,8 +1964,7 @@ function canvasReleased() {
       }
       //check the area info
       else if (areas != null && me.room != null) {
-        //you know, at this point I'm not sure if you are using assets scaled by 2 for the areas
-        //so I'm just gonna stretch the coordinates ok
+        //you know, at this point I'm not sure if you are using assets scaled by 2 for the areas so I'm just gonna stretch the coordinates ok
         var mx = floor(map(mouseX, 0, WIDTH, 0, areas.width));
         var my = floor(map(mouseY, 0, HEIGHT, 0, areas.height));
 
@@ -2114,6 +2065,7 @@ function getCommand(c, roomId) {
 
 function executeCommand(c) {
   areaLabel = "";
+  studentName = "";
   //print("Executing command " + c.cmd);
 
   switch (c.cmd) {
@@ -2176,10 +2128,11 @@ function executeCommand(c) {
       break;
 
     case "video":
-      if (c.txt != null) {
-        if (c.url == null) longTextLink = "";
-        else longTextLink = c.url;
-      } else print("Missing URL");
+      if (c.student != null) {
+        student_name = c.student;
+        var event = new Event('iconclicked', {bubbles: true});
+        canvas_container.dispatchEvent(event);
+      } else print("Video did not work :(");
       break;
   }
 }
@@ -2564,3 +2517,49 @@ window.addEventListener("focus", function () {
 window.addEventListener("blur", function () {
   if (socket != null && me != null) socket.emit("blur", { room: me.room });
 });
+
+// Show student name and further info
+function playIconLabel(an) {
+  // an = artist name
+
+  let xPos = mouseX;
+  let xPosRounded = floor(xPos);
+
+  let spaceBetweenLabels = 2;
+  let totalWidth;
+
+  //click to view label
+  let ctv = "Click to view video."; //label text
+  let ctv_width = textWidth(ctv); //text width
+  let ctv_l_width = ctv_width / 2 + TEXT_PADDING * 2; //label width
+  let ctv_l_height = TEXT_H / 2 + TEXT_PADDING * 2; //label height
+  let ctv_xPos = xPosRounded + TEXT_PADDING ; //text x position
+  let ctv_yPos = floor(mouseY - TEXT_PADDING); //text y position
+  let ctv_l_yPos = floor(mouseY - ctv_l_height); // top left corner y position
+
+  let an_t = "By " + an; //label text
+  let an_t_width = textWidth(an_t); //text width
+  let an_l_width = an_t_width + TEXT_PADDING * 2 + 1; //label width;
+  let an_l_height = TEXT_H + TEXT_PADDING * 2; //label height
+  let an_t_xPos = xPosRounded + TEXT_PADDING;
+  let an_t_yPos = ctv_yPos - an_l_height - spaceBetweenLabels + TEXT_PADDING; //text y position
+  let an_l_yPos = floor(mouseY - (an_l_height + spaceBetweenLabels + ctv_l_height)); //top left corner y position
+
+  ctv_l_width > an_l_width ? totalWidth = ctv_l_width : totalWidth = an_l_width;
+
+  if (mouseX + totalWidth > width) {
+    xPosRounded = width - totalWidth;
+    an_t_xPos = xPosRounded + TEXT_PADDING;
+    ctv_xPos = xPosRounded + TEXT_PADDING;
+  }
+
+  fill(UI_BG); //rectangle fill
+  noStroke(); //no stroke
+  rect(xPosRounded, an_l_yPos, an_l_width, an_l_height); //artist name label rectangle
+  rect(xPosRounded, ctv_l_yPos, ctv_l_width, ctv_l_height); //click to view label rectangle
+  fill(LABEL_NEUTRAL_COLOR); //text label colour
+  textFont(font, FONT_SIZE / 2)
+  text(ctv, ctv_xPos, ctv_yPos); //click to view text
+  textFont(font, FONT_SIZE)
+  text(an_t, an_t_xPos, an_t_yPos); //artist name label text
+}

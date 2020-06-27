@@ -16,12 +16,9 @@ module.exports.initMod = function (io, gameState, DATA) {
     global.io = io;
     global.DATA = DATA;
 
-    
-
     global.lastRhymes = [];
     global.rhymingPlayers = {};
     global.beatPlaying = false;
-
 
     global.paranoidTalk = [
         "Good evening",
@@ -45,7 +42,7 @@ module.exports.initMod = function (io, gameState, DATA) {
     //load extended dictionary, this is 3Mb but only sits on the server and it's used by only one room
     const fs = require('fs');
     
-    //cycle through contraints in the consonant room
+    //cycle through messages from the security guard in the security hall
     global.consonant = 0;
     setInterval(function () {
         global.consonant++;
@@ -55,24 +52,23 @@ module.exports.initMod = function (io, gameState, DATA) {
         }
         var msg = "";
 
-        if (global.consonant == 0) //a
+        if (global.consonant == 0)
             msg = "Thank you for coming to the show";
-        if (global.consonant == 1) //e
+        if (global.consonant == 1)
             msg = "Welcome to CCI diploma show";
-        if (global.consonant == 2) //i
+        if (global.consonant == 2)
             msg = "Enjoy the show";
-        if (global.consonant == 3) //o
+        if (global.consonant == 3)
             msg = "Click on the different projects";
-        if (global.consonant == 4) //u
+        if (global.consonant == 4)
             msg = "Play different presentations";
-        if (global.consonant == 5) //none
+        if (global.consonant == 5)
             msg = "Have fun!";
-
 
         //sends a message to the room
         io.to("security").emit('nonPlayerTalked', { id: "", labelColor: "#3e7eb0", room: "security", message: msg, x: 36, y: 56 });
 
-    }, 2.5 * 1000); //every 2.5 seconds changes
+    }, 2.5 * 1000); //every 2.5 seconds change the message
 
     //global function ffs
     global.random = function (min, max) {
@@ -113,14 +109,10 @@ module.exports.initMod = function (io, gameState, DATA) {
             //clearTimeout(npc.behavior);
             //npc.delete();
         }
-
-
     }, random(1000, 2000));
 
     global.VIPList = [];
-
 }
-
 
 //custom function called on the server side when a player successfully enters or exits the room
 //executed before it's broadcast to the other players
@@ -134,17 +126,14 @@ module.exports.experimentsLeave = function (player, roomId) {
 
 //wouldn't it be funny if cetain rooms modified your messages?
 module.exports.experimentsTalkFilter = function (player, message) {
-
     //console.log("MOD: " + player.nickName + " said " + message);
     //message = message.replace(/[aeiou]/ig, '');
     //make sure it returns a message
     return message;
 }
 
-
 //wouldn't it be funny if cetain rooms modified your messages?
 module.exports.VIPRoomTalkFilter = function (player, message) {
-
     //console.log("MOD: " + player.nickName + " said " + message);
     message = global.rita.getPhonemes(message);
     message = message.replace(/-/g, "");
@@ -154,7 +143,6 @@ module.exports.VIPRoomTalkFilter = function (player, message) {
 
 //wouldn't it be funny if cetain rooms modified your messages?
 module.exports.cnsnntrmTalkFilter = function (player, message) {
-
     //console.log("MOD: " + player.nickName + " said " + message);
 
     if (global.consonant == 0) //a
@@ -169,7 +157,6 @@ module.exports.cnsnntrmTalkFilter = function (player, message) {
         message = message.replace(/[aeio]/ig, 'u');
     if (global.consonant == 5) //none
         message = message.replace(/[aeiou]/ig, '');
-
 
     //make sure it returns a message
     return message;
@@ -222,7 +209,6 @@ module.exports.censorshipRoomTalkFilter = function (player, message) {
             }
 
             censoredMessage += bleep;
-
         }
         else {
             censoredMessage += newWord;
@@ -233,31 +219,20 @@ module.exports.censorshipRoomTalkFilter = function (player, message) {
         if (j < words.length - 1)
             censoredMessage += " ";
     }
-
-
     return censoredMessage;
-
 }
-
-
-
 
 //if enters when music is playing sent 
 module.exports.rhymeRoomJoin = function (playerObject, roomId) {
-
     if (io.sockets.sockets[playerObject.id] != null && global.beatPlaying) {
         io.sockets.sockets[playerObject.id].emit('musicEnter', global.beat);
-
     }
-
 }
 
 //if enters when music is playing sent 
 module.exports.rhymeRoomLeave = function (playerObject, roomId) {
-
     if (io.sockets.sockets[playerObject.id] != null) {
         io.sockets.sockets[playerObject.id].emit('musicExit');
-
     }
 }
 
@@ -281,15 +256,12 @@ module.exports.darkRoomTalkFilter = function (player, message) {
             arr[i] = rita.randomItem(nouns);
             replaced = true;
         }
-
     }
-
     return arr.join(" ");
 }
 
 //player enters family room roles are assigned by the server
 module.exports.familyRoomJoin = function (playerObject, roomId) {
-
     var foundRole = false;
     for (var roleId in global.familyRoles) {
         //role not assigned
@@ -299,12 +271,10 @@ module.exports.familyRoomJoin = function (playerObject, roomId) {
             console.log(playerObject.id + " becomes " + roleId);
         }
     }
-
     if (!foundRole)
         console.log(playerObject.id + " becomes a fly");
 
     //assign a new role and send all the roles to the room
-
     io.to("familyRoom").emit('updateRoles', playerObject.id, global.familyRoles);
 
     //io.to("familyRoom").emit('assignRole', { id: playerObject.id, roleId: "wife", roleLabel: "Wife", rolePrompt: "You are feeling frustrated" });
@@ -314,7 +284,6 @@ module.exports.familyRoomJoin = function (playerObject, roomId) {
 //exit > free up the role
 //player enters family room roles are assigned by the server
 module.exports.familyRoomLeave = function (playerObject, roomId) {
-
     for (var roleId in global.familyRoles) {
         //role not assigned
         if (global.familyRoles[roleId] == playerObject.id) {
@@ -325,7 +294,6 @@ module.exports.familyRoomLeave = function (playerObject, roomId) {
     }
     //I don't need to send updated roles
     //io.to("familyRoom").emit('updateRoles', playerObject.id, global.familyRoles);
-
 }
 
 //mute spectators on the server-side
@@ -343,7 +311,6 @@ module.exports.familyRoomTalkFilter = function (player, message) {
         return "zzzz";
     else
         return message;
-
 }
 
 module.exports.VIPRoomJoin = function (playerObject, roomId) {
@@ -355,13 +322,10 @@ module.exports.VIPRoomJoin = function (playerObject, roomId) {
 
         //force leave
         if (io.sockets.sockets[expelled] != null) {
-
             this.transferPlayer(expelled, "VIPRoom", "likelikeOutside", 121 * 2, 89 * 2);
             io.to(expelled).emit('godMessage', "Sorry, we had to expel you to make room for " + playerObject.nickName);
         }
-
     }
-
 }
 
 module.exports.VIPRoomIntro = function (newComerId, introObj) {
@@ -401,7 +365,6 @@ module.exports.transferPlayer = function (playerId, from, to, x, y) {
             p.y = p.destinationY = y;
             p.new = false;
 
-
             //check if there is a custom function in the MOD to call at this point
             if (this[from + "Leave"] != null) {
                 //call it!
@@ -409,7 +372,6 @@ module.exports.transferPlayer = function (playerId, from, to, x, y) {
             }
 
             io.to(to).emit("playerJoined", p);
-
 
             //check if there is a custom function in the MOD to call at this point
             if (this[to + "Join"] != null) {
@@ -425,7 +387,6 @@ module.exports.transferPlayer = function (playerId, from, to, x, y) {
                     npc.sendIntroTo(playerId);
                 }
             }
-
         }
 }
 
@@ -437,7 +398,6 @@ module.exports.VIPRoomLeave = function (playerObject, roomId) {
     if (index !== -1) {
         global.VIPList.splice(index, 1);
     }
-
 }
 
 
