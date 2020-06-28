@@ -75,6 +75,8 @@ var font;
 var TEXT_H = 10;
 var TEXT_PADDING = 3;
 var TEXT_LEADING = TEXT_H + 4;
+var rw;
+var rh;
 
 var LOGO_FILE = "logo-solid.png";
 var MENU_BG_FILE = "menu_white.png";
@@ -151,6 +153,7 @@ var paletteIndex = 0;
 
 //GUI
 var LABEL_NEUTRAL_COLOR = "#FFFFFF";
+var SUBLABEL_COLOR = "#e1cdcd"; //same as pale pink page background found in data.js
 var UI_BG = "#000000";
 
 //global vars! I love global vars
@@ -174,6 +177,9 @@ var areaLabel;
 var labelColor;
 var rolledSprite;
 var studentName;
+var projectName;
+var clickToViewVid;
+var clickToViewProj;
 
 //
 var student_name;
@@ -1351,7 +1357,7 @@ function update() {
     drawSprites();
 
     //GUI
-    if (nickName != "" && rolledSprite == null && areaLabel == "" && studentName == "")
+    if (nickName != "" && rolledSprite == null && areaLabel == "" && studentName == "" && projectName == "")
       animation(walkIcon, floor(mouseX + 6), floor(mouseY - 6));
 
     //draw all the speech bubbles lines first only if the players have not moves since speaking
@@ -1397,10 +1403,12 @@ function update() {
     if (nickName == "") {
       label = "";
       studentName = "";
+      projectName = "";
     }
 
     if (video_active) {
       studentName = "";
+      projectName = "";
       label = "";
     }
 
@@ -1419,7 +1427,7 @@ function update() {
     if (me != null) if (label == me.nickName) label = "";
 
     //draw rollover label
-    if (label != "" && longText == "" && studentName == "") {
+    if (label != "" && longText == "" && studentName == "" && projectName == "") {
       textFont(font, FONT_SIZE);
       textAlign(LEFT, BASELINE);
       var lw = textWidth(label);
@@ -1443,6 +1451,7 @@ function update() {
     //long text above everything
     if (longText != "" && nickName != "") {
       studentName = "";
+      projectName = "";
       noStroke();
       textFont(font, FONT_SIZE);
       textLeading(TEXT_LEADING);
@@ -1476,8 +1485,8 @@ function update() {
         if (longTextAlign == "center" && longTextLines == 1)
           tw = textWidth(longText + " ");
 
-        var rw = tw + LONG_TEXT_PADDING * 2;
-        var rh = th + LONG_TEXT_PADDING * 2;
+        rw = tw + LONG_TEXT_PADDING * 2;
+        rh = th + LONG_TEXT_PADDING * 2;
 
         fill(UI_BG);
 
@@ -1500,7 +1509,11 @@ function update() {
     } //end long text
 
     if (studentName != "") {
-      playIconLabel(studentName);
+      twoLineHover(studentName, clickToViewVid);
+    }
+
+    if (projectName != ""){
+      twoLineHover(projectName, clickToViewProj);
     }
 
     if (nickName == "" && (logoCounter < LOGO_STAY || LOGO_STAY == -1)) {
@@ -1893,6 +1906,7 @@ function mouseMoved() {
     var c = areas.get(mx, my);
     areaLabel = "";
     studentName = "";
+    projectName = "";
 
     if (alpha(c) != 0 && me.room != null) {
       //walk icon?
@@ -1905,8 +1919,13 @@ function mouseMoved() {
             areaLabel = command.label;
           }
           if (command.artistname != null) {
-            studentName = command.artistname;
-        }
+            studentName = "By " + command.artistname;
+            clickToViewVid = "Click to view project video."
+          }
+          if (command.project != null) {
+            projectName = command.project;
+            clickToViewProj = "Click to view project."
+          }
       }
     }
   }
@@ -1931,7 +1950,22 @@ function canvasReleased() {
   } else if (nickName != "" && screen == "game" && mouseButton == LEFT) {
     //exit text
     if (longText != "" && longText != SETTINGS.INTRO_TEXT) {
-      if (longTextLink != "") window.open(longTextLink, "_blank");
+
+      var xborder = (width - rw) / 2;
+      var yborder = (height - rh) / 2;
+      var textbox_x1 = xborder;
+      var textbox_x2 = width - xborder;
+      var textbox_y1 = yborder;
+      var textbox_y2 = height - yborder;
+      var within_text_box;
+
+      if (mouseX > textbox_x1 && mouseX < textbox_x2 && mouseY > textbox_y1 && mouseY < textbox_y2) {
+        within_text_box = true;
+      } else {
+        within_text_box = false;
+      }
+
+      if (longTextLink != "" && within_text_box) window.open(longTextLink, "_blank");
 
       longText = "";
       longTextLink = "";
@@ -2066,6 +2100,7 @@ function getCommand(c, roomId) {
 function executeCommand(c) {
   areaLabel = "";
   studentName = "";
+  projectName = "";
   //print("Executing command " + c.cmd);
 
   switch (c.cmd) {
@@ -2518,9 +2553,8 @@ window.addEventListener("blur", function () {
   if (socket != null && me != null) socket.emit("blur", { room: me.room });
 });
 
-// Show student name and further info
-function playIconLabel(an) {
-  // an = artist name
+// Show two line hover with larger main text above and smaller sub text below
+function twoLineHover(main, sub) {
 
   let xPos = mouseX;
   let xPosRounded = floor(xPos);
@@ -2528,38 +2562,40 @@ function playIconLabel(an) {
   let spaceBetweenLabels = 2;
   let totalWidth;
 
-  //click to view label
-  let ctv = "Click to view video."; //label text
-  let ctv_width = textWidth(ctv); //text width
-  let ctv_l_width = ctv_width / 2 + TEXT_PADDING * 2; //label width
-  let ctv_l_height = TEXT_H / 2 + TEXT_PADDING * 2; //label height
-  let ctv_xPos = xPosRounded + TEXT_PADDING ; //text x position
-  let ctv_yPos = floor(mouseY - TEXT_PADDING); //text y position
-  let ctv_l_yPos = floor(mouseY - ctv_l_height); // top left corner y position
+  //sub label (smaller text)
+  let sub_width = textWidth(sub); //text width
+  let sub_l_width = sub_width / 2 + TEXT_PADDING * 2; //label width
+  let sub_l_height = TEXT_H / 2 + TEXT_PADDING * 2; //label height
+  let sub_xPos = xPosRounded + TEXT_PADDING ; //text x position
+  let sub_yPos = floor(mouseY - TEXT_PADDING); //text y position
+  let sub_l_yPos = floor(mouseY - sub_l_height); // top left corner y position
 
-  let an_t = "By " + an; //label text
-  let an_t_width = textWidth(an_t); //text width
-  let an_l_width = an_t_width + TEXT_PADDING * 2 + 1; //label width;
-  let an_l_height = TEXT_H + TEXT_PADDING * 2; //label height
-  let an_t_xPos = xPosRounded + TEXT_PADDING;
-  let an_t_yPos = ctv_yPos - an_l_height - spaceBetweenLabels + TEXT_PADDING; //text y position
-  let an_l_yPos = floor(mouseY - (an_l_height + spaceBetweenLabels + ctv_l_height)); //top left corner y position
+  //main label (larger text)
+  let main_t_width = textWidth(main); //text width
+  let main_l_width = main_t_width + TEXT_PADDING * 2 + 1; //label width;
+  let main_l_height = TEXT_H + TEXT_PADDING * 2; //label height
+  let main_t_xPos = xPosRounded + TEXT_PADDING; //text x position
+  let main_t_yPos = sub_yPos - main_l_height - spaceBetweenLabels + TEXT_PADDING; //text y position
+  let main_l_yPos = floor(mouseY - (main_l_height + spaceBetweenLabels + sub_l_height)); //top left corner y position
 
-  ctv_l_width > an_l_width ? totalWidth = ctv_l_width : totalWidth = an_l_width;
+  //take the wider label as the total width (width of the bounding box)
+  sub_l_width > main_l_width ? totalWidth = sub_l_width : totalWidth = main_l_width;
 
+  //adjust x position so that the label stays within the canvas
   if (mouseX + totalWidth > width) {
     xPosRounded = width - totalWidth;
-    an_t_xPos = xPosRounded + TEXT_PADDING;
-    ctv_xPos = xPosRounded + TEXT_PADDING;
+    main_t_xPos = xPosRounded + TEXT_PADDING;
+    sub_xPos = xPosRounded + TEXT_PADDING;
   }
 
   fill(UI_BG); //rectangle fill
   noStroke(); //no stroke
-  rect(xPosRounded, an_l_yPos, an_l_width, an_l_height); //artist name label rectangle
-  rect(xPosRounded, ctv_l_yPos, ctv_l_width, ctv_l_height); //click to view label rectangle
-  fill(LABEL_NEUTRAL_COLOR); //text label colour
-  textFont(font, FONT_SIZE / 2)
-  text(ctv, ctv_xPos, ctv_yPos); //click to view text
-  textFont(font, FONT_SIZE)
-  text(an_t, an_t_xPos, an_t_yPos); //artist name label text
+  rect(xPosRounded, main_l_yPos, main_l_width, main_l_height); //main label rectangle
+  rect(xPosRounded, sub_l_yPos, sub_l_width, sub_l_height); //sub label rectangle
+  fill(SUBLABEL_COLOR); //sub label text colour
+  textFont(font, FONT_SIZE / 2); //sub label text size is smaller
+  text(sub, sub_xPos, sub_yPos); //draw sub label text
+  textFont(font, FONT_SIZE); //main label text size is larger
+  fill(LABEL_NEUTRAL_COLOR); //main label text colour
+  text(main, main_t_xPos, main_t_yPos); //draw main label text
 }
