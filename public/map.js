@@ -5,25 +5,69 @@ let canvasStyle, canvasWidth, canvasHeight;
 let normalWidth = 256;
 let normalHeight = 200;
 
-let button = document.getElementById("map-button");
+// let button = document.getElementById("map-button");
+let canvasContainer = document.getElementById("canvas-container");
 let mapContainer = document.getElementById("map");
 let mapImg = document.getElementById("map-img");
 let mobile;
 
-function main() {
+function createMapButton() {
     mobile = isMobile();
-    button.value = "SHOW MAP";
+
+    let button = document.createElement("button");
+
+    button.textContent = "SHOW MAP";
+
+    button.style.zIndex = "1";
+	button.style.position = "absolute";
+    button.style.font = "32px monogram";
+	button.style.lineHeight= "1em";
+	button.style.margin = "0px";
+	button.style.display = "inline-block";
+	button.style.border = "none";
+	button.style.textAlign = "center";
+	button.style.color = "white";
+	button.style.background = "#ff004d";
+	button.style.outline = "none";
+	button.style.borderBottom = "4px solid#424242";
+	button.style.marginLeft = "auto";
+	button.style.marginRight = "auto";
+	button.style.paddingTop = "2px";
+	button.style.paddingBottom = "5px";
+	button.style.paddingLeft = "8px";
+	button.style.paddingRight = "8px";
+    button.style.cursor = "pointer";
+    
+    canvasContainer.appendChild(button);
+
+    button.onmouseenter = () => {
+        button.style.background = "#ff77a8";
+    };
+
+    button.onmouseleave = () => {
+        button.style.background = "#ff004d";
+    };
+
+    button.onmousedown = () => {
+        button.style.borderBottom = "none";
+        button.style.marginTop = "4px";
+    }
+
+    button.onmouseup = () => {
+        button.style.borderBottom = "4px solid#424242";
+        button.style.marginTop = "0px";
+    }
 
     button.addEventListener("click", function (event) {
         mapButton(button, mapContainer);
     });
 
     getDimensions();
-    setMapPosition();
+    setMapPosition(button);
 
     window.addEventListener("resize", () => {
         getDimensions();
-        setMapPosition();
+        setMapPosition(button);
     });
 }
 
@@ -42,12 +86,12 @@ function getDimensions() {
     window_h = window.innerHeight;
 }
 
-function setMapPosition() {
+function setMapPosition(btn) {
     if (!mobile) {
         let mapBottom = window_h - canvasHeight;
         let mapRight = window_w - (window_w - canvasWidth) / 2;
-        button.style.left = "-120px";
-        button.style.bottom = "0";
+        btn.style.left = "-120px";
+        btn.style.bottom = "0";
         mapContainer.style.bottom = `${mapBottom}px`;
         mapContainer.style.right = `${mapRight}px`;
         mapImg.style.objectPosition = "right bottom";
@@ -58,8 +102,8 @@ function setMapPosition() {
         let mapTop = canvasHeight - buttonVertical;
         let mapLeft = (window_w - canvasWidth) / 2;
         let mapHeight = window_h - canvasHeight + buttonVertical;
-        button.style.left = "0px";
-        button.style.bottom = `${buttonVertical}px`;
+        btn.style.left = "0px";
+        btn.style.bottom = `${buttonVertical}px`;
         mapContainer.style.top = `${mapTop}px`;
         mapContainer.style.left = `${mapLeft}px`;
         mapContainer.style.height = `${mapHeight}px`;
@@ -80,15 +124,13 @@ function isMobile() {
 }
 
 function mapButton(btn, container) {
-    container.style.display === "block" ? container.style.display = "none" : container.style.display = "block";
-
-    if (btn.value == "SHOW MAP") {
-        btn.value = "HIDE MAP";
-        btn.innerHTML = "HIDE MAP";
-    } else {
+    if (container.style.display === "block") {
+        container.style.display = "none"
         btn.value = "SHOW MAP";
         btn.innerHTML = "SHOW MAP";
+    } else { 
+        container.style.display = "block";
+        btn.value = "HIDE MAP";
+        btn.innerHTML = "HIDE MAP";
     }
 }
-
-main();

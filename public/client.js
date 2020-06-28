@@ -587,6 +587,7 @@ function draw() {
 function setupGame() {
   gameStarted = true;
 
+
   //starting from default or from location on the url?
   if (ROOM_LINK) {
     //url parameters can pass the room so a room can be linked
@@ -723,6 +724,7 @@ function newGame() {
       console.log("Error on connect");
       console.error(e);
     }
+    createMapButton();
   }); //end connect
 
   //when somebody joins the game create a new player
