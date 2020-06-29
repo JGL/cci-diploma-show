@@ -36,39 +36,39 @@ module.exports.initMod = function (io, gameState, DATA) {
         "Watch carefully",
         "I feel enlightened",
         "Hello"
-        
+
     ];
 
     //load extended dictionary, this is 3Mb but only sits on the server and it's used by only one room
     const fs = require('fs');
-    
-    //cycle through messages from the security guard in the security hall
-    global.consonant = 0;
-    setInterval(function () {
-        global.consonant++;
-        //aeiou-
-        if (global.consonant > 5) {
-            global.consonant = 0;
-        }
-        var msg = "";
 
-        if (global.consonant == 0)
-            msg = "Thank you for coming to the show";
-        if (global.consonant == 1)
-            msg = "Welcome to CCI diploma show";
-        if (global.consonant == 2)
-            msg = "Enjoy the show";
-        if (global.consonant == 3)
-            msg = "Click on the different projects";
-        if (global.consonant == 4)
-            msg = "Play different presentations";
-        if (global.consonant == 5)
-            msg = "Have fun!";
+    //cycle through messages from the security guard in reception
+    global.message = 0;
+    setInterval(function () {
+        var messages = [
+            "Explore the galleries",
+            "Click projects to view them",
+            "Press play to hear from students",
+            "Check out the map",
+        ]
 
         //sends a message to the room
-        io.to("security").emit('nonPlayerTalked', { id: "", labelColor: "#3e7eb0", room: "security", message: msg, x: 36, y: 56 });
+        io.to("reception").emit('nonPlayerTalked', {
+            id: "",
+            labelColor: "#ffffff",
+            room: "reception",
+            message: messages[global.message],
+            x: 51*2,
+            y: 56*2
+        });
 
-    }, 2.5 * 1000); //every 2.5 seconds change the message
+        global.message++;
+
+        if (global.message >= messages.length) {
+            global.message = 0;
+        }
+
+    }, 10 * 1000);
 
     //global function ffs
     global.random = function (min, max) {
@@ -114,10 +114,31 @@ module.exports.initMod = function (io, gameState, DATA) {
     global.VIPList = [];
 }
 
+module.exports.receptionJoin = function(player, roomId) {
+    const prefixes = [
+        "Welcome",
+        "Hello",
+        "Hi",
+        "Hey",
+        "How's it going"
+    ]
+
+    const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+
+    io.to("reception").emit('nonPlayerTalked', {
+        id: "",
+        labelColor: "#ffffff",
+        room: "reception",
+        message: `${prefix} ${player.nickName}`,
+        x: 51*2,
+        y: 56*2
+    });
+}
+
 //custom function called on the server side when a player successfully enters or exits the room
 //executed before it's broadcast to the other players
 module.exports.experimentsJoin = function (player, roomId) {
-    //console.log("MOD: " + player.nickName + " entered room " + roomId);
+    // console.log("MOD: " + player.nickName + " entered room " + roomId);
 }
 
 module.exports.experimentsLeave = function (player, roomId) {
@@ -126,7 +147,7 @@ module.exports.experimentsLeave = function (player, roomId) {
 
 //wouldn't it be funny if cetain rooms modified your messages?
 module.exports.experimentsTalkFilter = function (player, message) {
-    //console.log("MOD: " + player.nickName + " said " + message);
+    // console.log("MOD: " + player.nickName + " said " + message);
     //message = message.replace(/[aeiou]/ig, '');
     //make sure it returns a message
     return message;
@@ -162,7 +183,7 @@ module.exports.cnsnntrmTalkFilter = function (player, message) {
     return message;
 }
 
-//words can only be used once 
+//words can only be used once
 module.exports.censorshipRoomTalkFilter = function (player, message) {
 
     //create a list of censored words
@@ -222,14 +243,14 @@ module.exports.censorshipRoomTalkFilter = function (player, message) {
     return censoredMessage;
 }
 
-//if enters when music is playing sent 
+//if enters when music is playing sent
 module.exports.rhymeRoomJoin = function (playerObject, roomId) {
     if (io.sockets.sockets[playerObject.id] != null && global.beatPlaying) {
         io.sockets.sockets[playerObject.id].emit('musicEnter', global.beat);
     }
 }
 
-//if enters when music is playing sent 
+//if enters when music is playing sent
 module.exports.rhymeRoomLeave = function (playerObject, roomId) {
     if (io.sockets.sockets[playerObject.id] != null) {
         io.sockets.sockets[playerObject.id].emit('musicExit');
@@ -414,6 +435,6 @@ module.exports.onTVInteract = function (pId) {
     var TVState = !DATA.ROOMS.familyRoom.things.TV.visible;
     //change the visibility
     DATA.ROOMS.familyRoom.things.TV.visible = TVState;
-    //send a thing update too ALL clients, changing the client data and telling them to delete and recreate the sprite if they are in the room 
+    //send a thing update too ALL clients, changing the client data and telling them to delete and recreate the sprite if they are in the room
     io.sockets.emit("thingChanged", { thingId: "TV", room: "familyRoom", property: "visible", value: TVState });
 }
