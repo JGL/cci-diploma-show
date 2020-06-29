@@ -13,6 +13,8 @@ CCI-Diploma-Show was built with [node.js](https://nodejs.org/), [socket.io](http
 
 Licensed under a GNU Lesser General Public License v2.1.
 
+![](promo.gif)
+
 # Team
 
 CCI-Diploma-Show was created by students from the Diploma: [Bea](https://github.com/bats1996), [Eunah](https://github.com/eunah-lee), [Jessie](https://github.com/jessieziyun) and [Max](https://github.com/MaximilianUAL2020).
