@@ -3,7 +3,7 @@ var placeholder_video_id = 'KRUbhRKiauA'; //intro to cci 2020 video
 
 var vid_id = {
   alex: 'oy0rQh7b9Vk',
-  bea: 'a6fU21hJac4', //example video on personal channel, will need changing to cci youtube
+  bea: 'a6fU21hJac4',
   cat: 'Ib-IJW5Ixws',
   jann: 'i7_fIwN2IYw',
   dejana: 'TmcLe9PUdRg',
