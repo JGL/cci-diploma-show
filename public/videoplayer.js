@@ -10,7 +10,7 @@ var vid_id = {
   ed: 'j8psAb5hNM4',
   ella: 'WMSbGW4XUI0',
   eunah: 'zP09VTeYOU0',
-  jessie: 'KN7miXqLY4Q', //example video on personal channel, will need changing to cci youtube
+  jessie: 'KN7miXqLY4Q',
   kamil: 'XaXEyDBLqnc',
   khalisha: 'hnLfZx97kHE',
   kirsty: 'tQdP_KpUW0I',
