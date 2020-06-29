@@ -626,6 +626,9 @@ function setupGame() {
     currentAvatar = floor(random(0, walkSheets.length));
     newGame();
   }
+  createMapButton();
+  var event = new Event('p5loaded', {bubbles: true});
+  canvas_container.dispatchEvent(event);
 }
 
 function newGame() {
@@ -724,7 +727,6 @@ function newGame() {
       console.log("Error on connect");
       console.error(e);
     }
-    createMapButton();
   }); //end connect
 
   //when somebody joins the game create a new player
