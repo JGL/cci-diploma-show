@@ -252,38 +252,6 @@ canvas {
 	text-align: center;
 }
 
-/* map */
-#map-button {
-	z-index:1;
-	position: absolute;
-	font-family: monogram;
-	font-size: 32px;
-	line-height: 1em;
-	margin: 0px;
-	display: inline-block;
-	border: none;
-	text-align: center;
-	color: white;
-	background: #ff004d;
-	outline: none;
-	border-bottom: 4px solid#424242;
-	margin-left: auto;
-	margin-right: auto;
-	padding-top: 2px;
-	padding-bottom: 5px;
-	padding-left: 8px;
-	padding-right: 8px;
-	cursor: pointer;
-}
-#map-button:active {
-	border-bottom: none;
-	margin-top: 4px;
-}
-
-#map-button:hover {
-	background: #ff77a8;
-}
-
 #map {
 	position: absolute;
 	display: none;
@@ -303,4 +271,5 @@ canvas {
 	top: 40%;
 	left: 50%;
 	transform: translate(-50%,-50%);
+	border: solid black;
 }

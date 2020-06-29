@@ -1,19 +1,16 @@
 var canvas_container = document.getElementById("canvas-container");
-var videobutton = document.getElementById('videobutton');
-var vidHeight = canvasWidth * 9 / 16;
-
 var placeholder_video_id = 'KRUbhRKiauA'; //intro to cci 2020 video
 
 var vid_id = {
   alex: '',
-  bea: 'n1W8W9TUKfY',
+  bea: 'n1W8W9TUKfY', //example video on personal channel, will need changing to cci youtube
   cat: '',
   jann: '',
   dejana: '',
   ed: '',
   ella: '',
   eunah: '',
-  jessie: '',
+  jessie: 'LGQV5g9hyGE', //example video on personal channel, will need changing to cci youtube
   kamil: '',
   khalisha: '',
   kirsty: '',
@@ -48,21 +45,25 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 
 function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: vidHeight,
-    width: canvasWidth,
-    videoId: placeholder_video_id,
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
+  canvas_container.addEventListener("p5loaded", () => {
+    var vidWidth = LONG_TEXT_BOX_W * canvasScale;
+    var vidHeight = vidWidth * 9 / 16;
+    player = new YT.Player('player', {
+      height: vidHeight,
+      width: vidWidth,
+      videoId: placeholder_video_id,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
   });
 }
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  canvas_container.addEventListener("iconclicked", function () {
-    // console.log('student video: ' + student_name);
+  canvas_container.addEventListener("iconclicked", () => {
+    console.log('Playing student video: ' + student_name);
 
     //if the play icon is clicked, load the video of the associated student
     student = vid_id[student_name];
