@@ -627,6 +627,7 @@ function setupGame() {
     newGame();
   }
   createMapButton();
+  createAboutPage();
   var event = new Event('p5loaded', {bubbles: true});
   canvas_container.dispatchEvent(event);
 }

@@ -7,34 +7,37 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <meta name="title" content="CCI Diploma Show" />
-    <meta name="description" content="Online show for the CCI Diploma 2020 graduating year." />
+    <meta name="description" content="Online show for the Diploma in Creative Computing Class of 2020" />
 
 
     <!-- SEO / social media-->
     <meta name="author" content="CCIDiploma2020" />
     <meta name="copyright" content="CCIDiploma2020" />
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="Online show for the CCI Diploma 2020 graduating year." />
+    <meta name="description" content="Online show for the Diploma in Creative Computing Class of 2020" />
     <meta name="keywords" content="gallery,creativecomputing,CCI,UAL" />
 
-    <meta property="og:image" content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593532251073" />
+    <meta property="og:image"
+        content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593532251073" />
     <meta property="og:title" content="CCI Diploma Show" />
-    <meta property="og:description" content="Online show for the CCI Diploma 2020 graduating year." />
+    <meta property="og:description" content="Online show for the Diploma in Creative Computing Class of 2020" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ual_cci" />
     <meta name="twitter:title" content="CCI Diploma Show" />
-    <meta name="twitter:description" content="Online show for the CCI Diploma 2020 graduating year." />
-    <meta name="twitter:image" content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593532251073" />
+    <meta name="twitter:description" content="Online show for the CCI Diploma Class of 2020" />
+    <meta name="twitter:image"
+        content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593532251073" />
 
-    <!-- This is a standard p5.js index, NOTE the p5.dom.min.js -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
     <script src="p5.play.js"></script>
+
     <script defer src="client.js"></script>
     <script defer src="map.js"></script>
+    <script defer src="about-page.js"></script>
     <script defer src="videoplayer.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 
@@ -42,11 +45,11 @@
 
 <body>
 
+    <!-- p5.js canvas -->
     <div id="canvas-container" oncontextmenu="return false;">
         <!-- the lobby element is displayed before the canvas is loaded -->
         <div id="lobby-container" style="display: none;">
             <div class="content-center">
-
                 <div class="lobby-message">What's your name?</div>
                 <form action="" onsubmit="return nameOk()">
                     <input id="lobby-field" class="lobby-field" placeholder="username" maxlength="16" autocomplete="off"
@@ -55,7 +58,6 @@
                 <div id="lobby-error" class="lobby-error-message"></div>
             </div>
         </div>
-
     </div>
 
     <div id="interface">
@@ -82,12 +84,29 @@
         </form>
     </div>
 
+    <!-- cci diploma show map -->
     <div id="map">
         <img id="map-img" src="assets/map/ccishow_floorplan.png">
     </div>
 
+    <!-- video player for youtube videos -->
     <div id="player"></div>
 
+    <!-- about page -->
+    <div id="about-button"></div>
+    <div id="about-page">
+        <div id="about-page-text">
+            <h1>Welcome to the CCI Diploma Show 2020</h1>
+
+            <p>Since we can no longer visit CCI physically, we decided to bring CCI to you! Feel free to wander around our virtual campus and get to know more about the projects we have been working on over the past few months. Here, you can eat a pizza, merge your face with a someone else's, blow some bubbles, touch someone else through your laptop, or help a starfish return home. Use the chat interface to talk to other attendees!</p>
+
+            <p>This show was built collaboratively by students from the first cohort of the CCI Diploma in Creative Computing, based on <a href="likelike.org">LIKELIKE Online</a>.</p>
+
+            <small>Site by <a href="https://github.com/bats1996">Bea Taylor Searle</a>, <a href="https://github.com/eunah-lee">Eunah Lee</a>, <a href="https://jessieziyun.com/">Jessie Zhang</a>, and <a href="https://github.com/MaximilianUAL2020">Maximilian Zimmerer</a>; music by <a href="https://www.llorencbas.com/">Llorenc Garcia Bas</a>; with thanks to Joel Gethin Lewis and Tom Lynch.</small>
+        </div>
+    </div>
+
+    <!-- link to CCI linktr.ee site -->
     <div id="info" class="info"><a href="https://linktr.ee/ual_cci" target="_blank">>UAL:CCI</a></div>
 
 </body>
