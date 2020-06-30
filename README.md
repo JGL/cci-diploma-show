@@ -2,18 +2,17 @@
 
 The tiniest MMORPG. Choose an avatar and hang out with your friends while attending the end of year (2020) show for the [UAL Creative Computing Institute](https://www.arts.ac.uk/creative-computing-institute)'s [Diploma in Creative Computing](https://www.arts.ac.uk/subjects/creative-computing/undergraduate/ual-creative-computing-institute-diploma).
 
-<a href="https://cci.arts.ac.uk" target="_blank">>>>Try it here<<<</a>
+<a href="https://diploma.cci.arts.ac.uk" target="_blank">>>>Try it here<<<</a>
 
 The project was based on an earlier project - [LIKELIKE Online](https://github.com/molleindustria/likelike-online) by [Molleindustria](http://molleindustria.org/).
 
-You can mod it to create your own virtual exhibitions, multi-user environments or games.  
-It's designed to be extensible by just editing the data.js file and a few settings at the beginning of server.js and client.js.
+You can mod it to create your own virtual exhibitions, multi-user environments or games. It's designed to be extensible by just editing the data.js file and a few settings at the beginning of server.js and client.js.
 
 CCI-Diploma-Show was built with [node.js](https://nodejs.org/), [socket.io](https://socket.io/), [p5.js](https://p5js.org/), and the p5.js add-on [p5.play](https://molleindustria.github.io/p5.play/).
 
 Licensed under a GNU Lesser General Public License v2.1.
 
-![](promo1.gif)  ![](promo2.gif)
+![](promo1.gif) ![](promo2.gif)
 
 # Team
 
@@ -34,11 +33,10 @@ The admin names are reserved. Logging in as "adminname|pass" (nickname and passw
 
 # Editing locally: guide for dev team
 
-First make sure you sure you have [git](https://git-scm.com/) installed
+First make sure you sure you have [git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/) installed
 
 ## Downloading and running
 
-* Make sure you have [Node.js](https://nodejs.org/en/) installed
 * Click on the **Clone or download** button in this repo to get its url
 * Clone using `git clone "url"`on your command line
 * Navigate to the repository on your command line 
