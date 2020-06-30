@@ -13,7 +13,7 @@ CCI-Diploma-Show was built with [node.js](https://nodejs.org/), [socket.io](http
 
 Licensed under a GNU Lesser General Public License v2.1.
 
-![](promo.gif)
+![](promo1.gif)  ![](promo2.gif)
 
 # Team
 
