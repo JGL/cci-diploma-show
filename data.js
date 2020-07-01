@@ -54,7 +54,7 @@ module.exports.ROOMS = {
             //down
             h29adff: { cmd: "enter", room: "care", label: "Care Room", point: [99, 73], enterPoint: [30, 73], obstacle: false },
             //artwork
-            ha8e72e: { cmd: "text", txt: "Project by Eunah Lee\nHelp Haru find its way back home!\nAn interactive storybook for kids", align: "left", lines: 3, url: "https://harus-adventure.glitch.me/", project: "Haru's Adventure", point: [34, 73], obstacle: false },
+            ha8e72e: { cmd: "text", txt: "Project by Eunah Lee\n\nHelp Haru find its way back home!\nAn interactive storybook for kids\n\nClick to view project.", align: "left", lines: 6, url: "https://harus-adventure.glitch.me/", project: "Haru's Adventure", point: [34, 73], obstacle: false },
             hff0000: { cmd: "text", txt: "Project by Stacy Griffiths\n\nBoggle is: A website for dog lovers, a place to lose yourself in a variety of doggy experiences:\nWear a dog crown\nDraw psychedelic dogs with your nose\nOr play a game of eat the treats using your dog head hoop to catch the dog biscuits\n\nClick to view project.", align: "left", lines: 13, url: "https://dog-game-website-.glitch.me/", project: "Boggle", point: [74, 73], obstacle: false },
             //TV icons
             hf39200: { cmd: "video", url: "https://harus-adventure.glitch.me/", student: 'eunah', artistname: "Eunah Lee", point: [34, 73], obstacle: false},
