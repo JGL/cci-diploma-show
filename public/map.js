@@ -99,10 +99,11 @@ function setMapPosition(btn, tlkbtn) {
     }
     if (mobile) {
         let buttonVertical = -130;
-        let mapHeight = window_h - canvasHeight + buttonVertical;
+        let mapHeight = window_h - canvasHeight + buttonVertical - 50;
         btn.style.left = "0px";
         btn.style.bottom = `${buttonVertical}px`;
         mapContainer.style.position = "relative";
+        mapContainer.style.top = "60px";
         mapContainer.style.maxWidth = `${canvasWidth}px`;
         mapContainer.style.maxHeight = `${mapHeight}px`;
         mapContainer.style.overflow = "scroll";
