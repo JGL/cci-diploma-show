@@ -2,6 +2,12 @@ let about_div = document.getElementById("about-button");
 let about_page_bg = document.getElementById("about-page");
 
 function createAboutPage() {
+
+    if (mobile) {
+        about_div.style.top = "auto";
+        about_div.style.bottom = "0px";
+        about_div.style.left = "0px";
+    }
     let button = document.createElement("button");
 
     button.textContent = ">ABOUT";

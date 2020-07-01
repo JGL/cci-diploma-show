@@ -280,8 +280,8 @@ canvas {
 	position: fixed;
 	top:0;
 	right:0;
-	width: 5%;
-	height: 10%;
+	width: 100px;
+	height: 46px;
 }
 
 #about-page {
