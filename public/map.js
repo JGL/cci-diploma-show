@@ -6,6 +6,7 @@ let normalWidth = 256;
 let normalHeight = 200;
 
 let canvasContainer = document.getElementById("canvas-container");
+let talkButton = document.getElementsByClassName("talk-button")[0];
 let mapContainer = document.getElementById("map");
 let mapImg = document.getElementById("map-img");
 let mobile;
@@ -61,11 +62,11 @@ function createMapButton() {
     }
 
     getDimensions();
-    setMapPosition(button);
+    setMapPosition(button, talkButton);
 
     window.addEventListener("resize", () => {
         getDimensions();
-        setMapPosition(button);
+        setMapPosition(button, talkButton);
     });
 }
 
@@ -83,7 +84,7 @@ function getDimensions() {
     window_h = window.innerHeight;
 }
 
-function setMapPosition(btn) {
+function setMapPosition(btn, tlkbtn) {
     if (!mobile) {
         let mapBottom = window_h - canvasHeight;
         let mapRight = window_w - (window_w - canvasWidth) / 2;
@@ -104,6 +105,7 @@ function setMapPosition(btn) {
         mapContainer.style.left = `${mapLeft}px`;
         mapContainer.style.height = `${mapHeight}px`;
         mapImg.style.objectPosition = "left top";
+        tlkbtn.style.width = "80px";
     }
 }
 
