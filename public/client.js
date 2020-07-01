@@ -2542,9 +2542,9 @@ function outOfCanvas() {
 }
 
 //disable scroll on phone
-function preventBehavior(e) {
-  e.preventDefault();
-}
+// function preventBehavior(e) {
+//   e.preventDefault();
+// }
 
 document.addEventListener("touchmove", preventBehavior, { passive: false });
 

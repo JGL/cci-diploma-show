@@ -253,7 +253,6 @@ canvas {
 }
 
 #map {
-	position: absolute;
 	display: none;
 	z-index: 0;
 }
@@ -261,7 +260,6 @@ canvas {
 #map-img {
 	max-width: 100%;
 	max-height: 100%;
-	object-fit: contain;
 }
 
 #player {

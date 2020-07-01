@@ -90,21 +90,24 @@ function setMapPosition(btn, tlkbtn) {
         let mapRight = window_w - (window_w - canvasWidth) / 2;
         btn.style.left = "-120px";
         btn.style.bottom = "0";
+        mapContainer.style.position = "absolute";
+        mapContainer.style.left = "0px";
         mapContainer.style.bottom = `${mapBottom}px`;
         mapContainer.style.right = `${mapRight}px`;
+        mapImg.style.objectFit = "contain";
         mapImg.style.objectPosition = "right bottom";
     }
     if (mobile) {
         let buttonVertical = -130;
-        let mapTop = canvasHeight - buttonVertical;
-        let mapLeft = (window_w - canvasWidth) / 2;
         let mapHeight = window_h - canvasHeight + buttonVertical;
         btn.style.left = "0px";
         btn.style.bottom = `${buttonVertical}px`;
-        mapContainer.style.top = `${mapTop}px`;
-        mapContainer.style.left = `${mapLeft}px`;
-        mapContainer.style.height = `${mapHeight}px`;
-        mapImg.style.objectPosition = "left top";
+        mapContainer.style.position = "relative";
+        mapContainer.style.maxWidth = `${canvasWidth}px`;
+        mapContainer.style.maxHeight = `${mapHeight}px`;
+        mapContainer.style.overflow = "scroll";
+        mapImg.style.width = "1000px";
+        mapImg.style.display = "inline-block";
         tlkbtn.style.width = "80px";
     }
 }
