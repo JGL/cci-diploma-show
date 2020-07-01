@@ -32,19 +32,23 @@ function createAboutPage() {
     };
 
     button.onclick = () => {
-        hideDiv(about_page_bg, button);
-        console.log("CLICKED ABOUT");
+        hideDiv(about_page_bg, button); 
+        if (video_active === true) {
+            player.stopVideo(); //stop the video if it is playing
+            ifr.style.display = "none"; //hide the video player
+            video_active = false;
+        }
     }
 }
 
 function hideDiv(div, btn) {
-    if (div.style.display !== "none") {
-        div.style.display = "none";
-        btn.value = ">ABOUT";
-        btn.innerHTML = ">ABOUT";
-    } else {
+    if (div.style.display !== "block") {
         div.style.display = "block";
         btn.value = ">BACK";
         btn.innerHTML = ">BACK";
+    } else {
+        div.style.display = "none";
+        btn.value = ">ABOUT";
+        btn.innerHTML = ">ABOUT";
     }
 }

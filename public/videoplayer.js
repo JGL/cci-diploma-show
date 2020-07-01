@@ -1,5 +1,6 @@
 var canvas_container = document.getElementById("canvas-container");
 var placeholder_video_id = 'KRUbhRKiauA'; //intro to cci 2020 video
+let ifr;
 
 var vid_id = {
   alex: 'oy0rQh7b9Vk',
@@ -74,7 +75,7 @@ function onPlayerReady(event) {
       console.warn("no video found. playing placeholder video.")
     }
     video_active = true; //if video is active disable other links
-    let ifr = player.getIframe()
+    ifr = player.getIframe()
     ifr.style.display = "block"; //display the video player
 
     //if canvas is clicked, stop video and stop displaying the iframe
