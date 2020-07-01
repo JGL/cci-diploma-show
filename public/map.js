@@ -5,7 +5,6 @@ let canvasStyle, canvasWidth, canvasHeight;
 let normalWidth = 256;
 let normalHeight = 200;
 
-// let button = document.getElementById("map-button");
 let canvasContainer = document.getElementById("canvas-container");
 let mapContainer = document.getElementById("map");
 let mapImg = document.getElementById("map-img");
@@ -46,6 +45,8 @@ function createMapButton() {
 
     button.onmouseleave = () => {
         button.style.background = "#ff004d";
+        button.style.marginTop = "0px";
+        button.style.borderBottom = "4px solid#424242";
     };
 
     button.onmousedown = () => {
@@ -56,11 +57,8 @@ function createMapButton() {
     button.onmouseup = () => {
         button.style.borderBottom = "4px solid#424242";
         button.style.marginTop = "0px";
-    }
-
-    button.addEventListener("click", function (event) {
         mapButton(button, mapContainer);
-    });
+    }
 
     getDimensions();
     setMapPosition(button);
@@ -72,7 +70,6 @@ function createMapButton() {
 }
 
 function getDimensions() {
-
     if (window_w > window_h) {
         canvasScale = window_h / normalWidth;
         canvasWidth = normalWidth * canvasScale;
@@ -95,7 +92,6 @@ function setMapPosition(btn) {
         mapContainer.style.bottom = `${mapBottom}px`;
         mapContainer.style.right = `${mapRight}px`;
         mapImg.style.objectPosition = "right bottom";
-
     }
     if (mobile) {
         let buttonVertical = -130;
