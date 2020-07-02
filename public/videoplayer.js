@@ -81,9 +81,11 @@ function onPlayerReady(event) {
     //if canvas is clicked, stop video and stop displaying the iframe
     canvas_container.addEventListener('click', function () {
       // console.log("canvas clicked");
-      ifr.style.display = "none"; //hide the video player
-      player.stopVideo(); //stop the video
-      video_active = false;
+      if(mouseX > 0){
+        ifr.style.display = "none"; //hide the video player
+        player.stopVideo(); //stop the video
+        video_active = false;
+      }
     }, false);
   }, false);
 }
