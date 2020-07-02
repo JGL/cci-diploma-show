@@ -299,7 +299,7 @@ module.exports.ROOMS = {
             //projects
             ha8e72e: { cmd: "text", txt: "Project by Morgan Williams\n\nAn interactive randomised location of a view of a city, every time you reload the page. Try moving one hand then the other up and down to see what happens.\n\nClick to view project.", align: "left", lines: 9, url: "https://views-from-a-room.glitch.me/", project: "Views from a Room", point: [34, 78], obstacle: true },
             hffff00: { cmd: "text", txt: "Project by Ella Jonquil Fitzgerald\n\nClick to view project.", align: "left", lines: 3, url: "https://webcam-socket-io.glitch.me/", project: "Quarantine Kiss", point: [64, 78], obstacle: true },
-            h0000ff: { cmd: "text", txt: "Project by Catherine Rose Lavender\n\nClick to view project.", align: "left", lines: 3, url: "https://root-dandy-position.glitch.me/", project: "be still, be calm", point: [92, 78], obstacle: true },
+            h0000ff: { cmd: "text", txt: "Project by Catherine Rose Lavender\n\nAn attempt to distill the mind through interaction. Calmness achieved through acute focous and visual pleasantry\n\nClick to view project.", align: "left", lines: 3, url: "https://root-dandy-position.glitch.me/", project: "be still, be calm", point: [92, 78], obstacle: true },
             //TV icons
             hf39200: { cmd: "video", url: "https://views-from-a-room.glitch.me/", student: 'morgan', artistname: "Morgan Williams", point: [34, 78], obstacle: true },
             hff00ff: { cmd: "video", url: "https://webcam-socket-io.glitch.me/", student: 'ella', artistname: "Ella Jonquil Fitzgerald", point: [64, 78], obstacle: true },

@@ -37,7 +37,7 @@ First make sure you sure you have [git](https://git-scm.com/) and [Node.js](http
 
 ## Downloading and running
 
-* Click on the **Clone or download** button in this repo to get its url
+* Click on the **Code** button in this repo to get its url
 * Clone using `git clone "url"`on your command line
 * Navigate to the repository on your command line 
 * Run `npm install` on your command line to download all required node modules
