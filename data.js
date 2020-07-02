@@ -32,6 +32,8 @@ module.exports.ROOMS = {
         tint: "#fdeac8",
         bubblesY: 44,
         spawn: [14, 89, 119, 98],
+        music: "kyouhei1.mp3",
+        musicVolume: 0.5,
         areaColors: {
             //h will be replaced by #
             hff77a8: { cmd: "enter", room: "reception", label: "Reception", point: [64, 87], enterPoint: [64, 90], obstacle: false  },
@@ -189,6 +191,8 @@ module.exports.ROOMS = {
         pageBg: indoorBG,
         bubblesY: 50,
         spawn: [84, 92, 121, 99],
+        music: "chami1.mp3",
+        musicVolume: 0.5,
         area: "galleryRoom-areas.png",
         areaColors: {
             //left

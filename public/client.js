@@ -1411,10 +1411,15 @@ function update() {
       projectName = "";
     }
 
-    if (video_active) {
+    if (video_active === true) {
       studentName = "";
       projectName = "";
       label = "";
+      if (ROOMS[p.room].musicLoop != null) {
+        ROOMS[p.room].musicLoop.setVolume(0);
+      }
+    } else if (video_active === false && ROOMS[p.room].musicLoop != null) {
+      ROOMS[p.room].musicLoop.setVolume(0.5);
     }
 
     //player and sprites label override areas
