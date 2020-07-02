@@ -2546,7 +2546,7 @@ function outOfCanvas() {
 //   e.preventDefault();
 // }
 
-document.addEventListener("touchmove", preventBehavior, { passive: false });
+document.addEventListener("touchmove", { passive: false });
 
 // Active
 window.addEventListener("focus", function () {
