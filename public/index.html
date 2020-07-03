@@ -1,32 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>CCI Diploma Show 2020</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <meta name="title" content="CCI Diploma Show" />
-    <meta name="description" content="Online show for the Diploma in Creative Computing Class of 2020" />
+    <meta
+      name="description"
+      content="Online show for the Diploma in Creative Computing Class of 2020"
+    />
 
     <!-- SEO / social media-->
     <meta name="author" content="CCIDiploma2020" />
     <meta name="copyright" content="CCIDiploma2020" />
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="Online show for the Diploma in Creative Computing Class of 2020" />
+    <meta
+      name="description"
+      content="Online show for the Diploma in Creative Computing Class of 2020"
+    />
     <meta name="keywords" content="gallery,creativecomputing,CCI,UAL" />
 
-    <meta property="og:image" content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593603146607" />
+    <meta
+      property="og:image"
+      content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593603146607"
+    />
     <meta property="og:title" content="CCI Diploma Show" />
-    <meta property="og:description" content="Online show for the Diploma in Creative Computing Class of 2020" />
+    <meta
+      property="og:description"
+      content="Online show for the Diploma in Creative Computing Class of 2020"
+    />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ual_cci" />
     <meta name="twitter:title" content="CCI Diploma Show" />
-    <meta name="twitter:description" content="Online show for the CCI Diploma Class of 2020" />
-    <meta name="twitter:image" content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593603146607" />
+    <meta
+      name="twitter:description"
+      content="Online show for the CCI Diploma Class of 2020"
+    />
+    <meta
+      name="twitter:image"
+      content="https://cdn.glitch.com/fce9d180-bee7-42ad-a623-787bf7db170a%2Fpromo.jpg?v=1593603146607"
+    />
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
@@ -37,92 +54,153 @@
     <script defer src="map.js"></script>
     <script defer src="about-page.js"></script>
     <script defer src="videoplayer.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
 
-<body>
-
+  <body>
     <!-- p5.js canvas -->
     <div id="canvas-container" oncontextmenu="return false;">
-        <!-- the lobby element is displayed before the canvas is loaded -->
-        <div id="lobby-container" style="display: none;">
-            <div class="content-center">
-                <div class="lobby-message">What's your name?</div>
-                <form action="" onsubmit="return nameOk()">
-                    <input id="lobby-field" class="lobby-field" placeholder="username" maxlength="16" autocomplete="off"
-                        autocorrect="off" autocapitalize="off" spellcheck="false" />
-                </form>
-                <div id="lobby-error" class="lobby-error-message"></div>
-            </div>
+      <!-- the lobby element is displayed before the canvas is loaded -->
+      <div id="lobby-container" style="display: none;">
+        <div class="content-center">
+          <div class="lobby-message">What's your name?</div>
+          <form action="" onsubmit="return nameOk()">
+            <input
+              id="lobby-field"
+              class="lobby-field"
+              placeholder="username"
+              maxlength="16"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+            />
+          </form>
+          <div id="lobby-error" class="lobby-error-message"></div>
         </div>
+      </div>
 
-        <!-- video player for youtube videos -->
-        <div id="player"></div>
+      <!-- video player for youtube videos -->
+      <div id="player"></div>
     </div>
 
     <div id="interface">
-        <!-- talk form is below canvas getTalkInput is what happens when return is pressed-->
-        <form id="join-form" action="" onsubmit="return joinGame()" style="display: none;">
-            <!-- call the function below on button press-->
-            <button class="join-button" type="button" onclick="joinGame();">JOIN</button>
-        </form>
+      <!-- talk form is below canvas getTalkInput is what happens when return is pressed-->
+      <form
+        id="join-form"
+        action=""
+        onsubmit="return joinGame()"
+        style="display: none;"
+      >
+        <!-- call the function below on button press-->
+        <button class="join-button" type="button" onclick="joinGame();">
+          JOIN
+        </button>
+      </form>
 
-        <form id="user-form" action="" onsubmit="return nameOk()" style="display: none;">
-            <!-- call the function below on button press-->
-            <button class="user-button" type="button" onclick="nameOk();">CONTINUE</button>
-        </form>
+      <form
+        id="user-form"
+        action=""
+        onsubmit="return nameOk()"
+        style="display: none;"
+      >
+        <!-- call the function below on button press-->
+        <button class="user-button" type="button" onclick="nameOk();">
+          CONTINUE
+        </button>
+      </form>
 
-        <form id="avatar-form" action="" onsubmit="return bodyOk()" style="display: none;">
-            <!-- call the function below on button press-->
-            <button class="avatar-button" type="button" onclick="bodyOk();">CONTINUE</button>
-        </form>
+      <form
+        id="avatar-form"
+        action=""
+        onsubmit="return bodyOk()"
+        style="display: none;"
+      >
+        <!-- call the function below on button press-->
+        <button class="avatar-button" type="button" onclick="bodyOk();">
+          CONTINUE
+        </button>
+      </form>
 
-        <form id="talk-form" action="" onsubmit="return getTalkInput()" style="display: none;">
-            <input class="talk-field" placeholder="TYPE HERE" maxlength="40" id="chatField" autocomplete="off" />
-            <!-- call the function below on button press-->
-            <button class="talk-button" type="button" onclick="getTalkInput();">TALK</button>
-        </form>
+      <form
+        id="talk-form"
+        action=""
+        onsubmit="return getTalkInput()"
+        style="display: none;"
+      >
+        <input
+          class="talk-field"
+          placeholder="TYPE HERE"
+          maxlength="40"
+          id="chatField"
+          autocomplete="off"
+        />
+        <!-- call the function below on button press-->
+        <button class="talk-button" type="button" onclick="getTalkInput();">
+          TALK
+        </button>
+      </form>
     </div>
 
     <!-- cci diploma show map -->
     <div id="map">
-        <img id="map-img" src="assets/ccishow_floorplan.png">
+      <img id="map-img" src="assets/ccishow_floorplan.png" />
     </div>
 
     <!-- about page -->
     <div id="about-button"></div>
     <div id="about-page">
-        <div id="about-page-text">
-            <h1>
-                Welcome to the CCI Diploma Show 2020
-            </h1>
-            <p>
-                Since we can no longer visit CCI physically, we decided to bring CCI to you! Feel free to wander around
-                our virtual campus and get to know more about the projects we have been working on over the past few
-                months. Here, you can eat a Swiss roll, merge your face with someone else's, blow some bubbles, touch a
-                stranger through your laptop, or help a lost starfish return home. Use the chat interface to talk to other
-                attendees!
-            </p>
-            <p>
-                This show was built collaboratively by students from the first cohort of the CCI Diploma in Creative
-                Computing, based on <a href="http://likelike.org/shows/" target="_blank">LIKELIKE Online</a>.
-            </p>
-            <small>
-                Site by <a href="https://btaylorsearle1.myportfolio.com/" target="_blank">Bea Taylor Searle</a>, 
-                <a href="https://www.eunah.xyz/" target="_blank">Eunah Lee</a>, 
-                <a href="https://jessieziyun.com/" target="_blank">Jessie Zhang</a>, and 
-                <a href="https://maximilian-zimmerer.herokuapp.com/" target="_blank">Maximilian Zimmerer</a>; 
-                music by <a href="https://www.instagram.com/noizyma/" target="_blank">Llorenc Garcia Bas</a>; 
-                with thanks to <a href="https://twitter.com/JoelGethinLewis" target="_blank">Joel Gethin Lewis</a>, 
-                <a href="https://www.arts.ac.uk/creative-computing-institute/people/tom-lynch" target="_blank">Tom Lynch</a>, 
-                and <a href="http://molleindustria.org/" target="_blank">Paulo Pedercini</a>.
-            </small>
-        </div>
+      <div id="about-page-text">
+        <h1>
+          Welcome to the CCI Diploma Show 2020
+        </h1>
+        <p>
+          Since we can no longer visit CCI physically, we decided to bring CCI
+          to you! Feel free to wander around our virtual campus and get to know
+          more about the projects we have been working on over the past few
+          months. Here, you can eat a Swiss roll, merge your face with someone
+          else's, blow some bubbles, touch a stranger through your laptop, or
+          help a lost starfish return home. Use the chat interface to talk to
+          other attendees!
+        </p>
+        <p>
+          This show was built collaboratively by students from the first cohort
+          of the CCI Diploma in Creative Computing, based on
+          <a href="http://likelike.org/shows/" target="_blank"
+            >LIKELIKE Online</a
+          >.
+        </p>
+        <small>
+          Site by
+          <a href="https://btaylorsearle1.myportfolio.com/" target="_blank"
+            >Bea Taylor Searle</a
+          >, <a href="https://www.eunah.xyz/" target="_blank">Eunah Lee</a>,
+          <a href="https://jessieziyun.com/" target="_blank">Jessie Zhang</a>,
+          and
+          <a href="https://maximilian-zimmerer.herokuapp.com/" target="_blank"
+            >Maximilian Zimmerer</a
+          >; music by
+          <a href="https://www.instagram.com/noizyma/" target="_blank"
+            >Llorenc Garcia Bas</a
+          >; with thanks to
+          <a href="https://twitter.com/JoelGethinLewis" target="_blank"
+            >Joel Gethin Lewis</a
+          >,
+          <a
+            href="https://www.arts.ac.uk/creative-computing-institute/people/tom-lynch"
+            target="_blank"
+            >Tom Lynch</a
+          >, and
+          <a href="http://molleindustria.org/" target="_blank"
+            >Paulo Pedercini</a
+          >.
+        </small>
+      </div>
     </div>
 
     <!-- link to CCI linktr.ee site -->
-    <div id="info" class="info"><a href="https://linktr.ee/ual_cci" target="_blank">>UAL:CCI</a></div>
-
-</body>
-
+    <div id="info" class="info">
+      <a href="https://linktr.ee/ual_cci" target="_blank">>UAL:CCI</a>
+    </div>
+  </body>
 </html>
