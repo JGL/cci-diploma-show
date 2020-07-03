@@ -587,7 +587,6 @@ function draw() {
 function setupGame() {
   gameStarted = true;
 
-
   //starting from default or from location on the url?
   if (ROOM_LINK) {
     //url parameters can pass the room so a room can be linked
@@ -628,7 +627,7 @@ function setupGame() {
   }
   createMapButton();
   createAboutPage();
-  var event = new Event('p5loaded', {bubbles: true});
+  var event = new Event("p5loaded", { bubbles: true });
   canvas_container.dispatchEvent(event);
 }
 
@@ -965,7 +964,14 @@ function newGame() {
   //when somebody talks
   socket.on("playerTalked", function (p) {
     try {
-      console.log("new message from " + p.id + ": " + p.message + " bubble color " + p.color);
+      console.log(
+        "new message from " +
+          p.id +
+          ": " +
+          p.message +
+          " bubble color " +
+          p.color
+      );
 
       //make sure the player exists in the client
       if (players.hasOwnProperty(p.id)) {
@@ -1068,7 +1074,16 @@ function newGame() {
       //change the value
       dataThing[t.property] = t.value;
 
-      print("Change property " + t.property + " of " + t.thingId + " in room " + t.room + " to " + t.value);
+      print(
+        "Change property " +
+          t.property +
+          " of " +
+          t.thingId +
+          " in room " +
+          t.room +
+          " to " +
+          t.value
+      );
 
       //recreate it
       createThing(dataThing, t.thingId);
@@ -1362,7 +1377,13 @@ function update() {
     drawSprites();
 
     //GUI
-    if (nickName != "" && rolledSprite == null && areaLabel == "" && studentName == "" && projectName == "")
+    if (
+      nickName != "" &&
+      rolledSprite == null &&
+      areaLabel == "" &&
+      studentName == "" &&
+      projectName == ""
+    )
       animation(walkIcon, floor(mouseX + 6), floor(mouseY - 6));
 
     //draw all the speech bubbles lines first only if the players have not moves since speaking
@@ -1437,7 +1458,12 @@ function update() {
     if (me != null) if (label == me.nickName) label = "";
 
     //draw rollover label
-    if (label != "" && longText == "" && studentName == "" && projectName == "") {
+    if (
+      label != "" &&
+      longText == "" &&
+      studentName == "" &&
+      projectName == ""
+    ) {
       textFont(font, FONT_SIZE);
       textAlign(LEFT, BASELINE);
       var lw = textWidth(label);
@@ -1522,7 +1548,7 @@ function update() {
       twoLineHover(studentName, clickToViewVid);
     }
 
-    if (projectName != ""){
+    if (projectName != "") {
       twoLineHover(projectName, clickToViewProj);
     }
 
@@ -1530,7 +1556,6 @@ function update() {
       logoCounter += deltaTime;
       animation(logo, floor(width / 2), floor(height / 2));
     }
-
   } //end game
 }
 
@@ -1551,7 +1576,14 @@ function scaleCanvas() {
   }
 
   var container = document.getElementById("canvas-container");
-  container.setAttribute("style", "width:" + WIDTH * canvasScale + "px; height: " + HEIGHT * canvasScale + "px");
+  container.setAttribute(
+    "style",
+    "width:" +
+      WIDTH * canvasScale +
+      "px; height: " +
+      HEIGHT * canvasScale +
+      "px"
+  );
 
   var form = document.getElementById("interface");
   form.setAttribute("style", "width:" + WIDTH * canvasScale + "px;");
@@ -1928,14 +1960,14 @@ function mouseMoved() {
           if (command.label != null) {
             areaLabel = command.label;
           }
-          if (command.artistname != null) {
-            studentName = "By " + command.artistname;
-            clickToViewVid = "Click to view project video."
-          }
-          if (command.project != null) {
-            projectName = command.project;
-            clickToViewProj = "Click to view project."
-          }
+        if (command.artistname != null) {
+          studentName = "By " + command.artistname;
+          clickToViewVid = "Click to view project video.";
+        }
+        if (command.project != null) {
+          projectName = command.project;
+          clickToViewProj = "Click to view project.";
+        }
       }
     }
   }
@@ -1952,7 +1984,6 @@ function canvasPressed() {
 
 //when I click to move
 function canvasReleased() {
-
   if (screen == "error") {
   } else if (nickName != "" && screen == "game" && mouseButton == RIGHT) {
     if (me.destinationX == me.x && me.destinationY == me.y)
@@ -1960,7 +1991,6 @@ function canvasReleased() {
   } else if (nickName != "" && screen == "game" && mouseButton == LEFT) {
     //exit text
     if (longText != "" && longText != SETTINGS.INTRO_TEXT) {
-
       var xborder = (width - rw) / 2;
       var yborder = (height - rh) / 2;
       var textbox_x1 = xborder;
@@ -1969,13 +1999,19 @@ function canvasReleased() {
       var textbox_y2 = height - yborder;
       var within_text_box;
 
-      if (mouseX > textbox_x1 && mouseX < textbox_x2 && mouseY > textbox_y1 && mouseY < textbox_y2) {
+      if (
+        mouseX > textbox_x1 &&
+        mouseX < textbox_x2 &&
+        mouseY > textbox_y1 &&
+        mouseY < textbox_y2
+      ) {
         within_text_box = true;
       } else {
         within_text_box = false;
       }
 
-      if (longTextLink != "" && within_text_box) window.open(longTextLink, "_blank");
+      if (longTextLink != "" && within_text_box)
+        window.open(longTextLink, "_blank");
 
       longText = "";
       longTextLink = "";
@@ -2175,7 +2211,7 @@ function executeCommand(c) {
     case "video":
       if (c.student != null) {
         student_name = c.student;
-        var event = new Event('iconclicked', {bubbles: true});
+        var event = new Event("iconclicked", { bubbles: true });
         canvas_container.dispatchEvent(event);
       } else print("Video did not work :(");
       break;
@@ -2565,7 +2601,6 @@ window.addEventListener("blur", function () {
 
 // Show two line hover with larger main text above and smaller sub text below
 function twoLineHover(main, sub) {
-
   let xPos = mouseX;
   let xPosRounded = floor(xPos);
 
@@ -2576,7 +2611,7 @@ function twoLineHover(main, sub) {
   let sub_width = textWidth(sub); //text width
   let sub_l_width = sub_width / 2 + TEXT_PADDING * 2; //label width
   let sub_l_height = TEXT_H / 2 + TEXT_PADDING * 2; //label height
-  let sub_xPos = xPosRounded + TEXT_PADDING ; //text x position
+  let sub_xPos = xPosRounded + TEXT_PADDING; //text x position
   let sub_yPos = floor(mouseY - TEXT_PADDING); //text y position
   let sub_l_yPos = floor(mouseY - sub_l_height); // top left corner y position
 
@@ -2585,11 +2620,16 @@ function twoLineHover(main, sub) {
   let main_l_width = main_t_width + TEXT_PADDING * 2 + 1; //label width;
   let main_l_height = TEXT_H + TEXT_PADDING * 2; //label height
   let main_t_xPos = xPosRounded + TEXT_PADDING; //text x position
-  let main_t_yPos = sub_yPos - main_l_height - spaceBetweenLabels + TEXT_PADDING; //text y position
-  let main_l_yPos = floor(mouseY - (main_l_height + spaceBetweenLabels + sub_l_height)); //top left corner y position
+  let main_t_yPos =
+    sub_yPos - main_l_height - spaceBetweenLabels + TEXT_PADDING; //text y position
+  let main_l_yPos = floor(
+    mouseY - (main_l_height + spaceBetweenLabels + sub_l_height)
+  ); //top left corner y position
 
   //take the wider label as the total width (width of the bounding box)
-  sub_l_width > main_l_width ? totalWidth = sub_l_width : totalWidth = main_l_width;
+  sub_l_width > main_l_width
+    ? (totalWidth = sub_l_width)
+    : (totalWidth = main_l_width);
 
   //adjust x position so that the label stays within the canvas
   if (mouseX + totalWidth > width) {
