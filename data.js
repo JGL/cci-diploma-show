@@ -12,14 +12,6 @@ module.exports.SETTINGS = {
 const indoorBG = "#e1cdcd"; //indoor page background (pale pink)
 const outdoorBG = "#d0e1cd"; //outdoor page background (pale green)
 
-//miscellaneous sounds to preload
-module.exports.SOUNDS = [
-  ["beat1", "beat1.ogg"], //credit https://www.youtube.com/watch?v=ugLVpZm69DE
-  ["beat2", "beat2.ogg"], // credit https://www.youtube.com/watch?v=dPdoxIz0w24
-  ["beat3", "beat3.ogg"], //credit https://www.youtube.com/watch?v=XShEWT4MwJs
-  ["DJStop", "DJStop.mp3"],
-];
-
 module.exports.ROOMS = {
   street: {
     bg: "cciOutside-bg.png",
